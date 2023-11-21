@@ -74,3 +74,8 @@ boostrap */
     flex-direction: row;
   }
 }
+
+/* Establecer un valor menor de z-index para las líneas */
+line {
+  opacity: 0.5;
+}
