@@ -70,7 +70,7 @@ function drawGraph() {
         .attr("stroke", "gray")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "1, 1")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
     );
     gridY.push(
       svg.append("line")
@@ -81,7 +81,7 @@ function drawGraph() {
         .attr("stroke", "gray")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "1, 1")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
     );
   }
 
@@ -163,13 +163,15 @@ function updateGrid() {
         .duration(1000)
         .attr("y1", i * ((height - margin.left - margin.right) / ticks))
         .attr("x2", width - margin.right - margin.left)
-        .attr("y2", i * (height - margin.left - margin.right) / ticks);
+        .attr("y2", i * (height - margin.left - margin.right) / ticks)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
         .duration(1000)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticks))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticks))
-        .attr("y2", height - margin.top - margin.bottom);
+        .attr("y2", height - margin.top - margin.bottom)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
     for (var i = ticks + 1; i < gridX.length; i++) {
       gridX[i].remove();
@@ -184,13 +186,15 @@ function updateGrid() {
         .duration(1000)
         .attr("y1", i * ((height - margin.left - margin.right) / ticks))
         .attr("x2", width - margin.right - margin.left)
-        .attr("y2", i * (height - margin.left - margin.right) / ticks);
+        .attr("y2", i * (height - margin.left - margin.right) / ticks)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
         .duration(1000)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticks))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticks))
-        .attr("y2", height - margin.top - margin.bottom);
+        .attr("y2", height - margin.top - margin.bottom)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
     for (var i = gridX.length; i < ticks + 1; i++) {
       gridX.push(
@@ -203,19 +207,19 @@ function updateGrid() {
           .attr("stroke", "gray")
           .attr("stroke-width", 1)
           .attr("stroke-dasharray", "1, 1")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+          .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
       );
       gridY.push(
         svg.append("line")
           .attr("class", "grid-line")
-          .attr("x1", i * ((width - margin.top - margin.bottom) / ticks))
+          .attr("x1", 0)
           .attr("y1", 0)
-          .attr("x2", i * ((width - margin.top - margin.bottom) / ticks))
+          .attr("x2", 0)
           .attr("y2", 0)
           .attr("stroke", "gray")
           .attr("stroke-width", 1)
           .attr("stroke-dasharray", "1, 1")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+          .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
       );
 
       gridX[i]
@@ -223,13 +227,15 @@ function updateGrid() {
         .duration(1000)
         .attr("y1", i * ((height - margin.left - margin.right) / ticks))
         .attr("x2", width - margin.right - margin.left)
-        .attr("y2", i * (height - margin.left - margin.right) / ticks);
+        .attr("y2", i * (height - margin.left - margin.right) / ticks)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
         .duration(1000)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticks))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticks))
-        .attr("y2", height - margin.top - margin.bottom);
+        .attr("y2", height - margin.top - margin.bottom)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
   }
 }
