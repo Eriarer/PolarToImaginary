@@ -6,19 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gráficas</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <!-- bootstrap 4.6.2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-            crossorigin="anonymous"></script>
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- css -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="view/css/styles.css">
   </head>
 
   <body>
@@ -26,120 +17,13 @@
       <div id="calculadora">
         <p>hola</p>
       </div>
-      <div id="graphContainer"></div>
+      <svg id="graphContainer">
+      </svg>
     </div>
     <!-- D3.js -->
-    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        var real = 0;
-        var imaginario = 0;
-        var dominio = 100;
-        var width, height, margin, svg, xScale, yScale, xAxis, yAxis;
-        //  obtener el tamaño del contenedor
-        // ancho utilizable, ancho del contenedor - el padding
-        var width = $("#graphContainer").width();
-        var height = $("#graphContainer").height();
-        // definir el margin en terminos de em
-        var margin = { top: 40, right: 40, bottom: 40, left: 40 };
-
-        drawGraph();
-
-        $(window).resize(function () {
-          width = $("#graphContainer").width();
-          height = $("#graphContainer").height();
-          // eliminar todos los hijos del contenedor
-          $("#graphContainer").empty();
-          drawGraph();
-        });
-
-        function drawGraph() {
-          // crear el svg
-          svg = d3.select("#graphContainer").append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .append("g");
-
-          // set up the x scale
-          xScale = d3.scale.linear()
-            .domain([-dominio, dominio])
-            .range([0, width - margin.left * 2 - margin.right * 2]); // actual length of axis
-
-          // set up the y scale
-          yScale = d3.scale.linear()
-            .domain([-dominio, dominio])
-            .range([height - margin.top * 2 - margin.bottom * 2, 0]); // actual length of axis
-
-          // define the x axis
-          xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom") // location of lables (default is bottom)
-            .innerTickSize([5])
-            .outerTickSize([1]);
-
-          // define the y axis
-          yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-            .innerTickSize([2])
-            .outerTickSize([1]);
-
-          // dibujar el eje X
-          svg.append("g")
-            .attr("class", "axis") // assign an axis class
-            .attr("transform", "translate( " + margin.left * 2 + ", " + (height / 2) + ")")
-            .call(xAxis);
-
-          // dibujar el eje Y 
-          svg.append("g")
-            .attr("class", "axis") // assign an axis class
-            .attr("transform", "translate(" + (width / 2) + ", " + margin.top * 2 + ")")
-            .call(yAxis);
-
-          // Agregar etiquetas de ejes
-          // EJE Y o imaginario
-          svg.append("text")
-            .attr("class", "axis-label")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width / 2) + "," + (margin.top * 1.5) + ")")
-            .text("Eje imaginario");
-          // EJE X o real
-          svg.append("text")
-            .attr("class", "axis-label")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width - margin.right) + "," + (height / 2 + margin.top / 4) + ")")
-            .text("Eje real");
-
-          // axis-arrow right
-          svg.append("text")
-            .attr("class", "axis-arrow")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width - margin.right * 2.1) + "," + ((height + margin.top / 2.7) / 2) + ")")
-            .text(">");
-          // axis-arrow left
-          svg.append("text")
-            .attr("class", "axis-arrow")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (margin.right * 2.1) + "," + ((height + margin.top / 3) / 2) + ")")
-            .text("<");
-          // axis-arrow top
-          svg.append("text")
-            .attr("class", "axis-arrow")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + ((height + margin.top / 3.05) / 2) + "," + (margin.top * 2.1) + ")rotate(-90)")
-            .text(">");
-          // axis-arrow bottom
-          svg.append("text")
-            .attr("class", "axis-arrow")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + ((height + margin.top / 3.06) / 2) + "," + (height - margin.top * 2.1) + ")rotate(-90)")
-            .text("<");
-
-        }// drawGraph
-
-      });// DOM on LOAD
-
-    </script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- js -->
+    <script src="view/js/main.js"></script>
   </body>
 
 </html>
