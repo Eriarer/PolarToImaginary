@@ -156,7 +156,7 @@ function modifyScale() {
 }// modifyScale
 
 function updateGrid() {
-  if (ticks < gridX.length) {
+  if (ticks <= gridX.length) {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
         .transition()
@@ -174,10 +174,12 @@ function updateGrid() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
     for (var i = ticks + 1; i < gridX.length; i++) {
+      // eliminar el elemento del DOM almacenado en la posición i
       gridX[i].remove();
       gridY[i].remove();
-      gridX.pop();
-      gridY.pop();
+      // eliminar el elemento del arreglo
+      gridX.splice(i, 1);
+      gridY.splice(i, 1);
     }
   } else {
     for (var i = 0; i < gridX.length; i++) {
