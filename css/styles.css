@@ -1,6 +1,10 @@
 #contenedor {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  /* alinear elementos horizontalmente al centro  */
+  align-items: center;
+
   & > div {
     padding: 1em;
     display: flex;
@@ -12,7 +16,9 @@
   font-weight: bolder;
   font-size: 1.5em;
 }
-
+.axis-label {
+  font-weight: bolder;
+}
 /* agregar las medias querys del grid de 
 boostrap */
 @media screen and (min-width: 576px) {

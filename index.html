@@ -22,12 +22,9 @@
   </head>
 
   <body>
-    <div class="text-center mx-3 h2">Melgoza de la Torre Abraham.</div>
     <div id="contenedor">
       <div id="calculadora">
-        <p>
-          hola
-        </p>
+        <p>hola</p>
       </div>
       <div id="graphContainer"></div>
     </div>
@@ -37,7 +34,7 @@
       $(document).ready(function () {
         var real = 0;
         var imaginario = 0;
-        var dominio
+        var dominio = 100;
         var width, height, margin, svg, xScale, yScale, xAxis, yAxis;
         //  obtener el tamaño del contenedor
         // ancho utilizable, ancho del contenedor - el padding
@@ -63,16 +60,14 @@
             .attr("height", height)
             .append("g");
 
-
-
           // set up the x scale
           xScale = d3.scale.linear()
-            .domain([-50, 50])
+            .domain([-dominio, dominio])
             .range([0, width - margin.left * 2 - margin.right * 2]); // actual length of axis
 
           // set up the y scale
           yScale = d3.scale.linear()
-            .domain([-50, 50])
+            .domain([-dominio, dominio])
             .range([height - margin.top * 2 - margin.bottom * 2, 0]); // actual length of axis
 
           // define the x axis
@@ -86,58 +81,60 @@
           yAxis = d3.svg.axis()
             .scale(yScale)
             .orient("left")
-            .innerTickSize([10])
+            .innerTickSize([2])
             .outerTickSize([1]);
 
-          // call the xAxis function to generate the x axis 
+          // dibujar el eje X
           svg.append("g")
             .attr("class", "axis") // assign an axis class
-            .attr("transform", "translate( " + margin.left + ", " + (height / 2) + ")")
+            .attr("transform", "translate( " + margin.left * 2 + ", " + (height / 2) + ")")
             .call(xAxis);
 
-          // call the yAxis function to generate the x axis 
+          // dibujar el eje Y 
           svg.append("g")
             .attr("class", "axis") // assign an axis class
-            .attr("transform", "translate(" + (width / 2) + ", " + margin.top + ")")
+            .attr("transform", "translate(" + (width / 2) + ", " + margin.top * 2 + ")")
             .call(yAxis);
 
           // Agregar etiquetas de ejes
+          // EJE Y o imaginario
           svg.append("text")
             .attr("class", "axis-label")
             .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width / 2) + "," + (margin.top / 2) + ")")
+            .attr("transform", "translate(" + (width / 2) + "," + (margin.top * 1.5) + ")")
             .text("Eje imaginario");
-
+          // EJE X o real
           svg.append("text")
             .attr("class", "axis-label")
             .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width - margin.right * 2) + "," + (height / 2 + margin.top / 4) + ")")
+            .attr("transform", "translate(" + (width - margin.right) + "," + (height / 2 + margin.top / 4) + ")")
             .text("Eje real");
 
+          // axis-arrow right
           svg.append("text")
             .attr("class", "axis-arrow")
             .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width - margin.right * 3.1) + "," + ((height + margin.top / 2.7) / 2) + ")")
+            .attr("transform", "translate(" + (width - margin.right * 2.1) + "," + ((height + margin.top / 2.7) / 2) + ")")
             .text(">");
-
+          // axis-arrow left
           svg.append("text")
             .attr("class", "axis-arrow")
             .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (margin.right * 1.05) + "," + ((height + margin.top / 3) / 2) + ")")
+            .attr("transform", "translate(" + (margin.right * 2.1) + "," + ((height + margin.top / 3) / 2) + ")")
+            .text("<");
+          // axis-arrow top
+          svg.append("text")
+            .attr("class", "axis-arrow")
+            .attr("text-anchor", "middle")
+            .attr("transform", "translate(" + ((height + margin.top / 3.05) / 2) + "," + (margin.top * 2.1) + ")rotate(-90)")
+            .text(">");
+          // axis-arrow bottom
+          svg.append("text")
+            .attr("class", "axis-arrow")
+            .attr("text-anchor", "middle")
+            .attr("transform", "translate(" + ((height + margin.top / 3.06) / 2) + "," + (height - margin.top * 2.1) + ")rotate(-90)")
             .text("<");
 
-          svg.append("text")
-            .attr("class", "axis-arrow")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + ((height + margin.top / 3) / 2) + "," + (margin.top * 1.05) + ")rotate(-90)")
-            .text(">");
-
-          svg.append("text")
-            .attr("class", "axis-arrow")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + ((height + margin.top / 3.5) / 2) + "," + (height - margin.top * 3.1) + ")rotate(-90)")
-            .text("<");
-          //
         }// drawGraph
 
       });// DOM on LOAD
