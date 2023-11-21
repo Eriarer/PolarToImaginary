@@ -1,0 +1,68 @@
+#contenedor {
+  display: flex;
+  flex-direction: row;
+  & > div {
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.axis-arrow {
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
+/* agregar las medias querys del grid de 
+boostrap */
+@media screen and (min-width: 576px) {
+  #graphContainer {
+    width: 98vmin;
+    height: 98vmin;
+  }
+  #calculadora {
+    width: 98vmin;
+  }
+  #contenedor {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #graphContainer {
+    width: 98vmin;
+    height: 98vmin;
+  }
+  #calculadora {
+    width: 98vmin;
+  }
+  #contenedor {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #graphContainer {
+    width: 98vmin;
+    height: 98vmin;
+  }
+  #calculadora {
+    width: 98vmin;
+  }
+  #contenedor {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #graphContainer {
+    width: 50vmin;
+    height: 50vmin;
+  }
+  #calculadora {
+    width: 50vmin;
+  }
+  #contenedor {
+    flex-direction: row;
+  }
+}
