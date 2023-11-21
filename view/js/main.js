@@ -55,6 +55,10 @@ function drawGraph() {
 
   xScale = d3.axisBottom(xAxis)
     .ticks(0, "s");
+  // eliminar el 0 del ejex
+  xScale.tickFormat(function (d) {
+    return d === 0 ? "" : d;
+  });
   yScale = d3.axisLeft(yAxis)
     .ticks(0, "s");
 
@@ -120,6 +124,8 @@ function updateGraph() {
 
   updateGrid();
 
+
+
   // Seleccionar y aplicar la transición al eje x
   svg.select(".x.axis")
     .transition()
@@ -133,7 +139,6 @@ function updateGraph() {
     .duration(1000)
     .attr("transform", "translate(" + width / 2 + ",0)")
     .call(yScale);
-
 }
 
 
@@ -150,9 +155,20 @@ function modifyScale() {
       ticks = 20;
   }// switch
   xScale = d3.axisBottom(xAxis)
-    .ticks(ticks, "s");
+    .ticks(ticks, "s")
+    .tickFormat(function (d) {
+      return d === 0 ? "" : d;
+    });
+  // Dentro de la función modifyScale()
   yScale = d3.axisLeft(yAxis)
-    .ticks(ticks, "s");
+    .ticks(ticks, "s")
+    .tickFormat(function (d) {
+      if (d === 0) {
+        d3.select(this).attr("transform", "translate(5, 12.5)");
+        return d3.format("")(d);
+      }
+      return d;
+    });
 }// modifyScale
 
 function updateGrid() {
