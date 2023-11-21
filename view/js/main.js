@@ -70,6 +70,7 @@ function drawGraph() {
         .attr("stroke", "gray")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "1, 1")
+        .css("z-index", "-1")
         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
     );
     gridY.push(
@@ -81,6 +82,7 @@ function drawGraph() {
         .attr("stroke", "gray")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "1, 1")
+        .css("z-index", "-1")
         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
     );
   }
@@ -164,6 +166,7 @@ function updateGrid() {
         .attr("y1", i * ((height - margin.left - margin.right) / ticks))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticks)
+        .css("z-index", "-1")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
@@ -171,6 +174,7 @@ function updateGrid() {
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticks))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticks))
         .attr("y2", height - margin.top - margin.bottom)
+        .css("z-index", "-1")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
     for (var i = ticks + 1; i < gridX.length; i++) {
@@ -209,6 +213,7 @@ function updateGrid() {
           .attr("stroke", "gray")
           .attr("stroke-width", 1)
           .attr("stroke-dasharray", "1, 1")
+          .css("z-index", "-1")
           .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
       );
       gridY.push(
@@ -221,6 +226,7 @@ function updateGrid() {
           .attr("stroke", "gray")
           .attr("stroke-width", 1)
           .attr("stroke-dasharray", "1, 1")
+          .css("z-index", "-1")
           .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
       );
 
