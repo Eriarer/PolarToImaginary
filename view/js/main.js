@@ -47,10 +47,17 @@ $(document).ready(function () {
   $(window).resize(function () {
     getScreenSize();
 
+    vectors[0][1].x = 80;
+    vectors[0][1].y = 150;
+    vectors[1][1].x = 200;
+    vectors[1][1].y = 500;
+    updateDom();
+    for (var i = 0; i < vectors.length; i++) {
+      updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
+    }
     updateGraph();
 
-    updateVector(vectorX, { x: 0, y: 0 }, { x: 80, y: 150 });
-    updateVector(vectorY, { x: 0, y: 0 }, { x: 150, y: 500 });
+
   });
 
 });// DOM on LOAD
@@ -200,16 +207,15 @@ function updateGraph() {
 
 
 function modifyScale() {
-  ticks = 0;
   switch (true) {
     case (width >= 0 && width < 768):
-      ticks = 4;
-      break;
-    case (width >= 768 && width < 992):
       ticks = 10;
       break;
-    default:
+    case (width >= 768 && width < 992):
       ticks = 20;
+      break;
+    default:
+      ticks = 40;
   }// switch
   xScale = d3.axisBottom(xAxis)
     .ticks(ticks, "s")
@@ -329,13 +335,17 @@ function drawVector(origin, end, color = "black") {
 }
 
 function updateVector(vector, origin, end) {
+  // Ajustar las coordenadas en función del dominio
+  var xScaleFactor = xDom === 0 ? 0 : (width - margin.left - margin.right) / (2 * xDom);
+  var yScaleFactor = yDom === 0 ? 0 : (height - margin.top - margin.bottom) / (2 * yDom);
+
   vector
     .transition()
     .duration(1000)
-    .attr("x1", origin.x)
-    .attr("y1", -origin.y)
-    .attr("x2", end.x)
-    .attr("y2", -end.y)
+    .attr("x1", origin.x * xScaleFactor)
+    .attr("y1", -origin.y * yScaleFactor)
+    .attr("x2", end.x * xScaleFactor)
+    .attr("y2", -end.y * yScaleFactor)
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 }
 
@@ -365,8 +375,6 @@ function updateDom() {
       yMax = Math.abs(vectors[i][1].y);
     }
   }
-  console.log("xMax: " + xMax);
-  console.log("yMax: " + yMax);
   for (var i = 1; true; i *= 10) {
     // si el valor se sale del maximo del dominio actual
     // entonces se aumenta el dominio
@@ -387,4 +395,6 @@ function updateDom() {
     yDom = yMax % i === 0 ? yMax : yMax + (i - yMax % i);
     break;
   }
+
+
 }
