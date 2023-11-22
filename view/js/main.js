@@ -209,7 +209,7 @@ function updateGraph() {
 function modifyScale() {
   switch (true) {
     case (width >= 0 && width < 768):
-      ticks = 10;
+      ticks = 8;
       break;
     case (width >= 768 && width < 992):
       ticks = 20;
