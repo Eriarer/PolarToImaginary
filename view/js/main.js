@@ -7,10 +7,15 @@ var ticks,
   xScale, yScale,
   gridX, gridY,
   vectorX, vectorY = null;
+
+var vectors = [];
+var vectorList = [];
 $(document).ready(function () {
   getScreenSize();
-  xDom = 100;
-  yDom = 100;
+  //             origen            fin
+  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
+  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
+  updateDom();
   //  obtener el tamaño del contenedor
   width = Math.trunc($("svg").width());
   height = Math.trunc($("svg").height());
@@ -25,11 +30,19 @@ $(document).ready(function () {
   };
   // Establecer el tamaño del contenedor SVG
   drawGraph();
-  vectorX = drawVector({ x: 0, y: 0 }, { x: 0, y: 0 }, "red");
-  vectorY = drawVector({ x: 0, y: 0 }, { x: 0, y: 0 }, "blue");
-  // Actualizar el tamaño del contenedor SVG cuando la ventana cambie de tamaño
-  updateVector(vectorX, { x: 0, y: 0 }, { x: 80, y: 150 });
-  updateVector(vectorY, { x: 0, y: 0 }, { x: 150, y: 200 });
+  // dibujar los vectores
+  for (var i = 0; i < vectors.length; i++) {
+    vectorList.push(drawVector(vectors[i][0], vectors[i][1]));
+  }
+  vectors[0][1].x = 80;
+  vectors[0][1].y = 150;
+  vectors[1][1].x = 150;
+  vectors[1][1].y = 1500;
+  updateDom();
+  updateGraph();
+  for (var i = 0; i < vectors.length; i++) {
+    updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
+  }
 
   $(window).resize(function () {
     getScreenSize();
@@ -37,7 +50,7 @@ $(document).ready(function () {
     updateGraph();
 
     updateVector(vectorX, { x: 0, y: 0 }, { x: 80, y: 150 });
-    updateVector(vectorY, { x: 0, y: 0 }, { x: 150, y: 200 });
+    updateVector(vectorY, { x: 0, y: 0 }, { x: 150, y: 500 });
   });
 
 });// DOM on LOAD
@@ -324,4 +337,54 @@ function updateVector(vector, origin, end) {
     .attr("x2", end.x)
     .attr("y2", -end.y)
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+}
+
+// recorrer los elementos del arreglo
+// y ajustar el domino de la gráfica de los ejes
+// al valor mayor de los elementos del arreglo
+// los dominios de los ejes seran absolutos
+// si el numero es 0.5 el dominio será 1
+// si el numero es 8 el dominio será 10
+// si el numero es 300 el dominio será 300
+// si el numero es 1578 el dominio será 2000
+// el dominio va aumnetando en potencias de 10
+function updateDom() {
+  var xMax = 0;
+  var yMax = 0;
+  for (var i = 0; i < vectors.length; i++) {
+    if (Math.abs(vectors[i][0].x) > xMax) {
+      xMax = Math.abs(vectors[i][0].x);
+    }
+    if (Math.abs(vectors[i][1].x) > xMax) {
+      xMax = Math.abs(vectors[i][1].x);
+    }
+    if (Math.abs(vectors[i][0].y) > yMax) {
+      yMax = Math.abs(vectors[i][0].y);
+    }
+    if (Math.abs(vectors[i][1].y) > yMax) {
+      yMax = Math.abs(vectors[i][1].y);
+    }
+  }
+  console.log("xMax: " + xMax);
+  console.log("yMax: " + yMax);
+  for (var i = 1; true; i *= 10) {
+    // si el valor se sale del maximo del dominio actual
+    // entonces se aumenta el dominio
+    if (i * 10 < xMax) {
+      continue;
+    }
+    // encontrar el numero mínimo multiplo del dominio que sea mayor al valor
+    xDom = xMax % i === 0 ? xMax : xMax + (i - xMax % i);
+    break;
+  }
+  for (var i = 1; true; i *= 10) {
+    // si el valor se sale del maximo del dominio actual
+    // entonces se aumenta el dominio
+    if (i * 10 < yMax) {
+      continue;
+    }
+    // encontrar el numero mínimo multiplo del dominio que sea mayor al valor
+    yDom = yMax % i === 0 ? yMax : yMax + (i - yMax % i);
+    break;
+  }
 }
