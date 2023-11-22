@@ -1,15 +1,16 @@
-let ticks,
+var ticks,
   xDom, yDom,
   real, imaginario,
   width, height, margin,
   svg,
   xAxis, yAxis,
   xScale, yScale,
-  gridX, gridY = null;
+  gridX, gridY,
+  vectorX, vectorY = null;
 $(document).ready(function () {
   getScreenSize();
   xDom = 100;
-  yDom = 200;
+  yDom = 100;
   //  obtener el tamaño del contenedor
   width = Math.trunc($("svg").width());
   height = Math.trunc($("svg").height());
@@ -22,15 +23,21 @@ $(document).ready(function () {
     left: 40,
     right: 40
   };
-
-
-
+  // Establecer el tamaño del contenedor SVG
   drawGraph();
+  vectorX = drawVector({ x: 0, y: 0 }, { x: 0, y: 0 }, "red");
+  vectorY = drawVector({ x: 0, y: 0 }, { x: 0, y: 0 }, "blue");
+  // Actualizar el tamaño del contenedor SVG cuando la ventana cambie de tamaño
+  updateVector(vectorX, { x: 0, y: 0 }, { x: 80, y: 150 });
+  updateVector(vectorY, { x: 0, y: 0 }, { x: 150, y: 200 });
 
   $(window).resize(function () {
     getScreenSize();
+
     updateGraph();
 
+    updateVector(vectorX, { x: 0, y: 0 }, { x: 80, y: 150 });
+    updateVector(vectorY, { x: 0, y: 0 }, { x: 150, y: 200 });
   });
 
 });// DOM on LOAD
@@ -78,7 +85,6 @@ function getScreenSize() {
 }
 
 function drawGraph() {
-
   // Crear el contenedor SVG
   svg = d3.select("svg").append("svg")
     .attr("width", 0)
@@ -295,4 +301,27 @@ function updateGrid() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
   }
+}
+
+function drawVector(origin, end, color = "black") {
+  return svg.append("line")
+    .attr("class", "vector")
+    .attr("x1", origin.x)
+    .attr("y1", -origin.y)
+    .attr("x2", end.x)
+    .attr("y2", -end.y)
+    .attr("stroke", color)
+    .attr("stroke-width", 2)
+    .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+}
+
+function updateVector(vector, origin, end) {
+  vector
+    .transition()
+    .duration(1000)
+    .attr("x1", origin.x)
+    .attr("y1", -origin.y)
+    .attr("x2", end.x)
+    .attr("y2", -end.y)
+    .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 }
