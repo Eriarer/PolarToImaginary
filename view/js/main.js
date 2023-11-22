@@ -8,13 +8,17 @@ var ticks,
   gridX, gridY,
   vectorX, vectorY = null;
 
-var vectors = [];
+var vectors = [
+  [{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "red"],
+  [{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "blue"],
+  [{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "green"]
+];
 var vectorList = [];
+
 $(document).ready(function () {
   getScreenSize();
   //             origen            fin
-  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "red"]);
-  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "blue"]);
+
   updateDom();
   //  obtener el tamaño del contenedor
   width = Math.trunc($("svg").width());
@@ -34,12 +38,9 @@ $(document).ready(function () {
   for (var i = 0; i < vectors.length; i++) {
     vectorList.push(drawVector(vectors[i][0], vectors[i][1], vectors[i][2]));
   }
-  vectors[0][1].x = 80;
-  vectors[0][1].y = 150;
-  vectors[1][1].x = 150;
-  vectors[1][1].y = 1500;
   updateDom();
   updateGraph();
+
   for (var i = 0; i < vectors.length; i++) {
     updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
   }
@@ -47,11 +48,6 @@ $(document).ready(function () {
   $(window).resize(function () {
     getScreenSize();
 
-    vectors[0][1].x = 80;
-    vectors[0][1].y = 150;
-    vectors[1][1].x = 200;
-    vectors[1][1].y = 500;
-    updateDom();
     for (var i = 0; i < vectors.length; i++) {
       updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
     }
@@ -94,9 +90,6 @@ function getScreenSize() {
   // Establecer el tamaño de los elementos
   $("svg").css("width", side).css("height", side);
   $("#calculadora").css("width", side).css("height", side);
-  //ponerles margin y padding a 0
-  $("svg").css("margin", "0").css("padding", "0");
-  $("#calculadora").css("margin", "0").css("padding", "0");
   // Actualizar otras propiedades según sea necesario
   width = Math.trunc($("svg").width());
   height = Math.trunc($("svg").height());
@@ -113,11 +106,13 @@ function drawGraph() {
 
   xAxis = d3.scaleLinear()
     .domain([-0, 0])
-    .range([0, 0]);
+    .range([0, 0])
+    .nice();
 
   yAxis = d3.scaleLinear()
     .domain([-0, 0])
-    .range([0, 0]);
+    .range([0, 0]).
+    nice();
 
   xScale = d3.axisBottom(xAxis)
     .ticks(0, "s");
@@ -175,6 +170,14 @@ function drawGraph() {
 }// drawGraph
 
 function updateGraph() {
+  vectors[0][1].x = 500;
+  vectors[1][0].x = 500;
+  vectors[1][1].x = 500;
+  vectors[1][1].y = 200;
+  vectors[2][1].x = 500;
+  vectors[2][1].y = 200;
+  updateDom();
+
   svg.attr("width", width)
     .attr("height", height);
 
@@ -209,7 +212,7 @@ function updateGraph() {
 function modifyScale() {
   switch (true) {
     case (width >= 0 && width < 768):
-      ticks = 8;
+      ticks = 10;
       break;
     case (width >= 768 && width < 992):
       ticks = 20;
@@ -217,14 +220,19 @@ function modifyScale() {
     default:
       ticks = 40;
   }// switch
+  var tickStepX = (2 * xDom) / ticks;
+  var tickStepY = (2 * yDom) / ticks;
+  //forzar la escala a utilizar los ticks
   xScale = d3.axisBottom(xAxis)
-    .ticks(ticks, "s")
+    .ticks(ticks)
+    .tickValues(d3.range(-xDom, xDom + tickStepX, tickStepX))
     .tickFormat(function (d) {
       return d === 0 ? "" : d;
     });
   // Dentro de la función modifyScale()
   yScale = d3.axisLeft(yAxis)
-    .ticks(ticks, "s")
+    .ticks(ticks)
+    .tickValues(d3.range(-yDom, yDom + tickStepY, tickStepY))
     .tickFormat(function (d) {
       if (d === 0) {
         d3.select(this).attr("transform", "translate(5, 12.5)");
@@ -253,14 +261,13 @@ function updateGrid() {
 
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
-    for (var i = ticks + 1; i < gridX.length; i++) {
-      // eliminar el elemento del DOM almacenado en la posición i
-      gridX[i].remove();
-      gridY[i].remove();
-      // eliminar el elemento del arreglo
-      gridX.splice(i, 1);
-      gridY.splice(i, 1);
-    }
+    // Eliminar elementos extra
+    gridX.splice(ticks + 1, gridX.length - ticks).forEach(function (el) {
+      el.remove();
+    });
+    gridY.splice(ticks + 1, gridY.length - ticks).forEach(function (el) {
+      el.remove();
+    });
   } else {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
@@ -330,7 +337,7 @@ function drawVector(origin, end, color = "black") {
     .attr("x2", end.x)
     .attr("y2", -end.y)
     .attr("stroke", color)
-    .attr("stroke-width", 2)
+    .attr("stroke-width", 4)
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 }
 

@@ -30,3 +30,7 @@ body {
 line {
   opacity: 0.5;
 }
+
+.vector {
+  opacity: 1;
+}
