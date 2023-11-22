@@ -1,78 +1,29 @@
-#contenedor {
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* alinear elementos horizontalmente al centro  */
+  flex-direction: column;
+  /* alinear los elementos al centro, centro */
   align-items: center;
-
-  & > div,
-  svg {
-    padding: 1em;
-    display: flex;
-    justify-content: center;
-    transition: 1s ease-in-out;
-  }
+  justify-content: center;
 }
 
-.axis-arrow {
-  font-weight: bolder;
-  font-size: 1.5em;
+#contenedor {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0;
 }
+
+#contenedor>* {
+  margin: 0;
+}
+
 .axis-label {
   font-weight: bolder;
-}
-/* agregar las medias querys del grid de 
-boostrap */
-@media screen and (min-width: 576px) {
-  #graphContainer {
-    width: 90vmin;
-    height: 90vmin;
-  }
-  #calculadora {
-    width: 90vmin;
-  }
-  #contenedor {
-    flex-direction: column;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  #graphContainer {
-    width: 90vmin;
-    height: 90vmin;
-  }
-  #calculadora {
-    width: 90vmin;
-  }
-  #contenedor {
-    flex-direction: column;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  #graphContainer {
-    width: 90vmin;
-    height: 90vmin;
-  }
-  #calculadora {
-    width: 90vmin;
-  }
-  #contenedor {
-    flex-direction: column;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  #graphContainer {
-    width: 50vmin;
-    height: 50vmin;
-  }
-  #calculadora {
-    width: 50vmin;
-  }
-  #contenedor {
-    flex-direction: row;
-  }
 }
 
 /* Establecer un valor menor de z-index para las líneas */

@@ -1,6 +1,15 @@
-let gridX, gridY, ticks, dominio, real, imaginario, width, height, margin, svg, xAxis, yAxis, xScale, yScale = null;
+let ticks,
+  xDom, yDom,
+  real, imaginario,
+  width, height, margin,
+  svg,
+  xAxis, yAxis,
+  xScale, yScale,
+  gridX, gridY = null;
 $(document).ready(function () {
-  dominio = 100;
+  getScreenSize();
+  xDom = 100;
+  yDom = 200;
   //  obtener el tamaño del contenedor
   width = Math.trunc($("svg").width());
   height = Math.trunc($("svg").height());
@@ -19,39 +28,70 @@ $(document).ready(function () {
   drawGraph();
 
   $(window).resize(function () {
-    //  obtener el tamaño del contenedor
-    width = Math.trunc($("svg").width());
-    height = Math.trunc($("svg").height());
-    $("svg").attr("width", width)
-      .attr("height", height);
+    getScreenSize();
     updateGraph();
+
   });
 
 });// DOM on LOAD
 
+function getScreenSize() {
+  // Obtener el tamaño de la ventana
+  var ancho = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  var alto = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  // Calcular el lado del cuadrado
+  var side;
+  if (ancho > alto) {//modo paisaje
+    side = alto * 2 >= ancho ? ancho / 2 : alto;
+    // por lo tanto el flex direction es row y alinar los elementos al centro vertical
+    $("#contenedor").css("flex-direction", "row")
+      .attr("width", side * 2)
+      .attr("height", side);
+  } else if (ancho < alto) { // modo retrato
+    side = ancho * 2 >= alto ? alto / 2 : ancho;
+    // por lo tanto el flex direction es column y alinear los elementos al centro horizontal
+    $("#contenedor").css("flex-direction", "column")
+      .attr("width", side)
+      .attr("height", side * 2)
+      .css("align-items", "center");
+  } else {
+    side = ancho - 20; // ancho menos 20 pixeles del scroll
+    // por lo tanto el flex direction es row y alinar los elementos al centro vertical
+    $("#contenedor").css("flex-direction", "column")
+      .attr("width", side)
+      .attr("height", side * 2);
+    $("body").attr("display", "block").
+      css("align-items", "unset")
+      .css("justify-content", "unset");
+  }
+  // Establecer el tamaño de los elementos
+  $("svg").css("width", side).css("height", side);
+  $("#calculadora").css("width", side).css("height", side);
+  //ponerles margin y padding a 0
+  $("svg").css("margin", "0").css("padding", "0");
+  $("#calculadora").css("margin", "0").css("padding", "0");
+  // Actualizar otras propiedades según sea necesario
+  width = Math.trunc($("svg").width());
+  height = Math.trunc($("svg").height());
+  $("#calculadora").attr("width", side).attr("height", side);
+  $("svg").attr("width", side).attr("height", side);
+}
 
 function drawGraph() {
-  var Fakewidth = 0;
-  var Fakeheight = 0;
-  var Fakemargin = {
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
-  };
+
   // Crear el contenedor SVG
   svg = d3.select("svg").append("svg")
-    .attr("width", Fakewidth)
-    .attr("height", Fakeheight);
+    .attr("width", 0)
+    .attr("height", 0);
 
 
   xAxis = d3.scaleLinear()
-    .domain([-dominio, dominio])
-    .range([Fakemargin.left, Fakewidth - Fakemargin.right]);
+    .domain([-0, 0])
+    .range([0, 0]);
 
   yAxis = d3.scaleLinear()
-    .domain([-dominio, dominio])
-    .range([Fakeheight - Fakemargin.bottom, Fakemargin.top]);
+    .domain([-0, 0])
+    .range([0, 0]);
 
   xScale = d3.axisBottom(xAxis)
     .ticks(0, "s");
@@ -113,18 +153,16 @@ function updateGraph() {
     .attr("height", height);
 
   xAxis = d3.scaleLinear()
-    .domain([-dominio, dominio])
+    .domain([-xDom, xDom])
     .range([margin.left, width - margin.right]);
 
   yAxis = d3.scaleLinear()
-    .domain([-dominio, dominio])
+    .domain([-yDom, yDom])
     .range([height - margin.bottom, margin.top]);
 
   modifyScale();
 
   updateGrid();
-
-
 
   // Seleccionar y aplicar la transición al eje x
   svg.select(".x.axis")
