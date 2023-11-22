@@ -13,8 +13,8 @@ var vectorList = [];
 $(document).ready(function () {
   getScreenSize();
   //             origen            fin
-  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
-  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
+  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "red"]);
+  vectors.push([{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "blue"]);
   updateDom();
   //  obtener el tamaño del contenedor
   width = Math.trunc($("svg").width());
@@ -32,7 +32,7 @@ $(document).ready(function () {
   drawGraph();
   // dibujar los vectores
   for (var i = 0; i < vectors.length; i++) {
-    vectorList.push(drawVector(vectors[i][0], vectors[i][1]));
+    vectorList.push(drawVector(vectors[i][0], vectors[i][1], vectors[i][2]));
   }
   vectors[0][1].x = 80;
   vectors[0][1].y = 150;
