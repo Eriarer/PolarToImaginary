@@ -154,6 +154,7 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <!-- js -->
     <script src="view/js/main.js"></script>
+      let toolTipId = "";
       // bandera para saber si mostramos los botones de transformar o los de operar
       let isTransformar = false;
       $(document).ready(function () {
@@ -174,6 +175,11 @@
             return;
           }
           toogleMainBtn();
+        });
+
+        // al hacer click en la pantalla ocultar tooltip
+        $(window).click(function () {
+          ocultarTooltip();
         });
       }); // Fin DOM ready
 
