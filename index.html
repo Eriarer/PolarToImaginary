@@ -154,6 +154,46 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <!-- js -->
     <script src="view/js/main.js"></script>
+      // bandera para saber si mostramos los botones de transformar o los de operar
+      let isTransformar = false;
+      $(document).ready(function () {
+        const calcBtn = $("#btn_calc");
+        const transBtn = $("#btn_trans");
+        // ver si el botón de calcular es activo
+        calcBtn.click(function () {
+          // solo cambmbiar si la pantalla actual es la de transformar
+          if (!isTransformar) {
+            return;
+          }
+          toogleMainBtn();
+        });
+
+        transBtn.click(function () {
+          // solo cambmbiar si la pantalla actual es la de operar
+          if (isTransformar) {
+            return;
+          }
+          toogleMainBtn();
+        });
+      }); // Fin DOM ready
+
+      // cambia los bonotes PRINCIPALES
+      function toogleMainBtn() {
+        var calcBtn = $("#btn_calc");
+        var transBtn = $("#btn_trans");
+        if (calcBtn.hasClass("btn-primary")) {
+          calcBtn.removeClass("btn-primary");
+          calcBtn.addClass("btn-dark");
+          transBtn.removeClass("btn-dark");
+          transBtn.addClass("btn-primary");
+        } else {
+          calcBtn.removeClass("btn-dark");
+          calcBtn.addClass("btn-primary");
+          transBtn.removeClass("btn-primary");
+          transBtn.addClass("btn-dark");
+        }
+        isTransformar = !isTransformar;
+      }
 
       // mostra tooltip
       function mostartTooltip(message) {
