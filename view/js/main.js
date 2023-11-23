@@ -30,10 +30,6 @@ $(document).ready(function () {
 
   updateGraph();
 
-  for (var i = 0; i < vectors.length; i++) {
-    updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
-  }
-
   $(window).resize(function () {
     updateGraph();
   });
@@ -133,6 +129,11 @@ function initGraph() {
 function updateGraph() {
   setScreensize();
 
+
+  svg.attr("width", width)
+    .attr("height", height);
+
+
   vectors[0][1].x = 500;
   vectors[1][0].x = 500;
   vectors[1][1].x = 500;
@@ -140,12 +141,11 @@ function updateGraph() {
   vectors[2][1].x = 500;
   vectors[2][1].y = 200;
 
-
+  for (var i = 0; i < vectors.length; i++) {
+    updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
+  }
 
   updateDom();
-
-  svg.attr("width", width)
-    .attr("height", height);
 
   xAxis = d3.scaleLinear()
     .domain([-xDom, xDom])
