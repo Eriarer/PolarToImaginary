@@ -23,6 +23,8 @@ margin = {
   left: 40,
   right: 40
 };
+
+let isDelitingVectors = false;
 $(document).ready(function () {
 
   // Establecer el tamaño del contenedor SVG
@@ -127,25 +129,33 @@ function initGraph() {
 }// drawGraph
 
 function updateGraph() {
+  while (isDelitingVectors) {
+    sleep(500).then(() => {
+      updateGraph();
+    });
+    return;
+  }
+
   setScreensize();
 
 
   svg.attr("width", width)
     .attr("height", height);
 
+  if (vectorList.length > 0) {
+    vectors[0][1].x = 500;
+    vectors[1][0].x = 500;
+    vectors[1][1].x = 500;
+    vectors[1][1].y = 200;
+    vectors[2][1].x = 500;
+    vectors[2][1].y = 200;
 
-  vectors[0][1].x = 500;
-  vectors[1][0].x = 500;
-  vectors[1][1].x = 500;
-  vectors[1][1].y = 200;
-  vectors[2][1].x = 500;
-  vectors[2][1].y = 200;
+    for (var i = 0; i < vectors.length; i++) {
+      updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
+    }
 
-  for (var i = 0; i < vectors.length; i++) {
-    updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
+    updateDom();
   }
-
-  updateDom();
 
   xAxis = d3.scaleLinear()
     .domain([-xDom, xDom])
@@ -304,6 +314,9 @@ function initVector(origin, end, color = "black") {
 }
 
 function updateVector(vector, origin, end) {
+  if (vector === null || vector === undefined || origin === null || origin === undefined || end === null || end === undefined) {
+    return;
+  }
   // Ajustar las coordenadas en función del dominio
   var xScaleFactor = xDom === 0 ? 0 : (width - margin.left - margin.right) / (2 * xDom);
   var yScaleFactor = yDom === 0 ? 0 : (height - margin.top - margin.bottom) / (2 * yDom);
@@ -360,6 +373,10 @@ function updateDom() {
 }
 
 function removeAllVectors() {
+  if (vectorList.length == 0) {
+    return;
+  }
+  isDelitingVectors = true;
   // reccorrer el vector de vectores y poner sus posiciones en 0,0 y actualizarlos despues eliminarlos
   for (var i = 0; i < vectorList.length; i++) {
     vectorList[i].transition()
@@ -373,13 +390,10 @@ function removeAllVectors() {
     for (var i = 0; i < vectorList.length; i++) {
       vectorList[i].remove();
     }
+    vectorList = [];
   });
-  vectorList = [];
+  isDelitingVectors = false;
 }
-
-sleep(2000).then(() => {
-  removeAllVectors();
-});
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

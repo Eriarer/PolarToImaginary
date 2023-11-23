@@ -34,27 +34,26 @@
           </div>
           <!-- Toogles -->
           <div class="col-12 col-md-6 mb-5 mb-md-0">
-            <button class="btn btn-primary btn-block" id="btn_calc">OPERAR</button>
+            <button class="btn btn-dark btn-block" id="btn-calc">OPERAR</button>
           </div>
           <div class="col-12 col-md-6  mb-0">
-            <button class="btn btn-dark btn-block" id="btn_trans">TRANSFORMAR</button>
+            <button class="btn btn-primary btn-block" id="btn-trans">TRANSFORMAR</button>
           </div>
         </div>
         <div class="row mt-5" id="controlPanel">
 
           <!-- Vector 1 -->
-          <div class="col-6 col-md-4 p-1">
-            <h4 class="text-center">Número en forma</h4>
-          </div>
-          <div class="col-6 col-md-2 p-1 pr-3">
-            <button id="toggleV1" class="btn btn-secondary btn-block" id="btn_div">Rectangular</button>
-          </div>
           <!-- Input V1 -->
-          <div class="col-12 col-md-6 p-1" id="inputV1">
-            <!-- Rectangular -->
+          <div class="col-12" id="V1">
             <div class="row">
+              <div class="col-12 col-md-3 p-1 mb-3">
+                <h4 class="text-center">Número en forma</h4>
+              </div>
+              <div class="col-12 col-md-3 p-1 mb-3">
+                <button id="toggleV1" class="btn btn-secondary btn-block">Polar</button>
+              </div>
               <!-- Numero -->
-              <div class="col-12 col-lg-6 mb-3">
+              <div class="col-12 col-md-3 mb-3">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">R</span>
@@ -62,70 +61,103 @@
                   <input type="text" class="form-control" placeholder="Real" id="r1">
                 </div>
               </div>
-              <!-- Imaginario -->
-              <div class="col-12 col-lg-6 mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">j</span>
+              <div class="col-12 col-md-3 mb-3">
+                <!-- Polar -->
+                <div id="polarV1">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="nf nf-md-angle_acute"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="grado1" placeholder="ángulo">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="nf nf-weather-degrees"></i></span>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="imaginario" id="img1">
+                </div>
+                <!-- Rectangular -->
+                <div id="rectangularV1">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">j</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="imaginario" id="img1">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Vector 2 -->
-          <div class="col-6 col-md-4 p-1">
+        <!-- Vector 2 -->
+        <!-- Input V2 -->
+        <div class="row" id="V2">
+          <div class="col-12 col-md-3 p-1 mb-3">
             <h4 class="text-center">Número en forma</h4>
           </div>
-          <div class="col-6 col-md-2 p-1 pr-3">
-            <button id="toggleV2" class="btn btn-secondary btn-block" id="btn_div">Rectangular</button>
+          <div class="col-12 col-md-3 p-1 mb-3">
+            <button id="toggleV2" class="btn btn-secondary btn-block">Polar</button>
           </div>
-          <!-- Input V2 -->
-          <div class="col-12 col-md-6 p-1" id="inputV2">
-            <!-- Rectangular -->
-            <div class="row">
-              <!-- Numero -->
-              <div class="col-12 col-lg-6 mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">R</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Real" id="r2">
-                </div>
+          <!-- Numero -->
+          <div class="col-12 col-md-3 mb-3">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">R</span>
               </div>
-              <!-- Imaginario -->
-              <div class="col-12 col-lg-6 mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">j</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="imaginario" id="img2">
+              <input type="text" class="form-control" placeholder="Real" id="r1">
+            </div>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <!-- Polar -->
+            <div id="polarV2">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="nf nf-md-angle_acute"></i></span>
+                </div>
+                <input type="text" class="form-control" id="grado1" placeholder="ángulo">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="nf nf-weather-degrees"></i></span>
                 </div>
               </div>
             </div>
+            <!-- Rectangular -->
+            <div id="rectangularV2">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">j</span>
+                </div>
+                <input type="text" class="form-control" placeholder="imaginario" id="img1">
+              </div>
+            </div>
           </div>
+        </div>
 
-          <!-- Botones -->
-          <div class="col-12 col-md-6 mb-3">
-            <button id="btnSuma" class="btn btn-custom btn-block btn-sum">Sumar</button>
+        <!-- Botones -->
+        <div class="row mb-3 butons" id="buttons">
+          <div id="cal-btn" class="col-12">
+            <div class="row">
+              <div class="col-12 col-md-6 mb-3">
+                <button id="btn-sum" class="btn btn-custom btn-block btn-sum">Sumar</button>
+              </div>
+              <div class="col-12 col-md-6 mb-3">
+                <button id="btn-min" class="btn btn-custom btn-block btn-res">Restar</button>
+              </div>
+              <div class="col-12 col-md-6 mb-3">
+                <button id="btn-mul" class="btn btn-custom btn-block btn-mul">Multiplicar</button>
+              </div>
+              <div class="col-12 col-md-6 mb-3">
+                <button id="btn-div" class="btn btn-custom btn-block btn-div">Dividir</button>
+              </div>
+            </div>
           </div>
-          <div class="col-12 col-md-6 mb-3">
-            <button id="btnResta" class="btn btn-custom btn-block btn-res">Restar</button>
-          </div>
-          <div class="col-12 col-md-6 mb-3">
-            <button id="btnMultiplicacion" class="btn btn-custom btn-block btn-mul">Multiplicar</button>
-          </div>
-          <div class="col-12 col-md-6 mb-3">
-            <button id="btnDivision" class="btn btn-custom btn-block btn-div">Dividir</button>
-          </div>
+        </div>
 
-          <!-- Resultado -->
-          <div class="col-12 mb-3">
-            <h2 class="text-center">Resultado</h2>
-          </div>
+        <!-- Resultado -->
+        <div class="row mb-3  butons">
+          <h2 class="text-center ">Resultado</h2>
+        </div>
+        <div class="row mb-3 answ" id="ansRectangular">
           <!-- Rectangular -->
-          <div class="col-12 col-md-6">
+          <div class="col">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="nf nf-md-rectangle_outline"></i></span>
@@ -133,8 +165,10 @@
               <input type="text" class="form-control" placeholder="Rectangular" id="resRect" readonly>
             </div>
           </div>
-          <!-- Polar -->
-          <div class="col-12 col-md-6">
+        </div>
+        <!-- Polar -->
+        <div class="row mb-3  answ" id="ansPolar">
+          <div class="col">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="nf nf-fa-magnet"></i></span>
@@ -146,100 +180,173 @@
       </div>
 
       <div id="svgContainer">
-        <svg id="graphContainer">
-        </svg>
+        <svg id="graphContainer"></svg>
       </div>
-    </div>
-    <!-- D3.js -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <!-- js -->
-    <script src="view/js/main.js"></script>
-    <script>
-      const Rectangular = {
-        v1: "../media/rectangularV1.txt",
-        v2: "../media/rectangularV2.txt",
-      }
-      const Polar = {
-        v1: "../media/polarV1.txt",
-        v2: "../media/polarV2.txt",
-      }
-      let toolTipId = "";
-      // bandera para saber si mostramos los botones de transformar o los de operar
-      let isTransformar = false;
-      $(document).ready(function () {
-        const calcBtn = $("#btn_calc");
-        const transBtn = $("#btn_trans");
-        // ver si el botón de calcular es activo
-        calcBtn.click(function () {
-          // solo cambmbiar si la pantalla actual es la de transformar
-          if (!isTransformar) {
-            return;
-          }
-          toogleMainBtn();
-        });
+      <!-- D3.js -->
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <!-- js -->
+      <script src="view/js/main.js"></script>
+      <script>
+        const toolTipId = "#tooltip";
+        let isTransform = true;
+        let v1IsRectangular = true;
+        let v2IsRectangular = true;
+        $(document).ready(function () {
+          stratView();
+          // al hacer click en la pantalla ocultar tooltip
+          $(window).click(function () {
+            ocultarTooltip();
+          });
+        }); // Fin DOM ready
 
-        transBtn.click(function () {
-          // solo cambmbiar si la pantalla actual es la de operar
-          if (isTransformar) {
-            return;
-          }
-          toogleMainBtn();
-        });
+        // empieza en el menu de transformar
+        function stratView() {
+          $("#polarV1").hide();
+          $("#V2").hide();
+          $("#cal-btn").hide();
+          $("#ansRectangular").hide();
 
-        // al hacer click en la pantalla ocultar tooltip
-        $(window).click(function () {
-          ocultarTooltip();
-        });
-      }); // Fin DOM ready
+          $("#toggleV1").click(function () {
+            toggleV1();
+          });
 
-      // cambia los bonotes PRINCIPALES
-      function toogleMainBtn() {
-        var calcBtn = $("#btn_calc");
-        var transBtn = $("#btn_trans");
-        if (calcBtn.hasClass("btn-primary")) {
-          calcBtn.removeClass("btn-primary");
-          calcBtn.addClass("btn-dark");
-          transBtn.removeClass("btn-dark");
-          transBtn.addClass("btn-primary");
-        } else {
-          calcBtn.removeClass("btn-dark");
-          calcBtn.addClass("btn-primary");
-          transBtn.removeClass("btn-primary");
-          transBtn.addClass("btn-dark");
+          $("#toggleV2").click(function () {
+            toggleV2();
+          });
+
+          $("#btn-calc").click(function () {
+            if (isTransform) {
+              toggleView();
+            }
+          });
+
+          $("#btn-trans").click(function () {
+            if (!isTransform) {
+              toggleView();
+            }
+          });
         }
-        isTransformar = !isTransformar;
-      }
 
-      // mostra tooltip
-      function mostartTooltip(message) {
-        $(toolTipId).tooltip('show');
-        $(toolTipId).attr('data-original-title', message);
-      }
+        function toggleView() {
+          if (isTransform) {
+            setV1Polar();
+            $("#V2").show();
+            setV2Polar();
+            $("#cal-btn").show();
+            $("#ansRectangular").show();
+            $("#btn-calc").removeClass("btn-dark")
+              .addClass("btn-primary");
+            $("#btn-trans").removeClass("btn-primary")
+              .addClass("btn-dark");
+          } else {
+            setV1Rectangular();
+            $("#V2").hide();
+            $("#cal-btn").hide();
+            $("#ansRectangular").hide();
+            $("#btn-calc").removeClass("btn-primary")
+              .addClass("btn-dark");
+            $("#btn-trans").removeClass("btn-dark")
+              .addClass("btn-primary");
+          }
+          // agregarle a los botnes .butons, a las respuestas .answ y a v1 y v2/
+          // la clase popOutIn y cuando termine la animacion quitarla
+          $(".butons").addClass("popOutIn");
+          $(".answ").addClass("popOutIn");
+          $("#V1").addClass("popOutIn");
+          $("#V2").addClass("popOutIn")
+            .one("animationend", function () {
+              $(".butons").removeClass("popOutIn");
+              $(".answ").removeClass("popOutIn");
+              $("#V1").removeClass("popOutIn");
+              $("#V2").removeClass("popOutIn");
+            });
+          isTransform = !isTransform;
+        }
 
-      function ocultarTooltip() {
-        // remover el tooltip
-        $(toolTipId).tooltip('hide');
-      }
+        function toggleV1() {
+          if (v1IsRectangular) {
+            setV1Polar();
+            if (isTransform) {
+              $("#ansPolar").hide();
+              $("#ansRectangular").show();
+            }
+          } else {
+            setV1Rectangular();
+            if (isTransform) {
+              $("#ansPolar").show();
+              $("#ansRectangular").hide();
+            }
+          }
+        }
 
-      // $("#btnSuma").click(function () {
-      //   const r1 = $("#r1").val();
-      //   const img1 = $("#img1").val();
-      //   const r2 = $("#r2").val();
-      //   const img2 = $("#img2").val();
-      // try {
-      //   const r1 = math.evaluate($("#r1").val());
-      //   console.log(r1);
-      //   const img1 = math.evaluate($("#img1").val());
-      //   console.log(img1);
-      //   const r2 = math.evaluate($("#r2").val());
-      //   console.log(r2);
-      //   const img2 = math.evaluate($("#img2").val());
-      //   console.log(img2);
-      // } catch (error) {
-      //   console.error("Error al evaluar la expresión:", error);
-      // }
-      // });
-    </script>
+        function toggleV2() {
+          if (v2IsRectangular) {
+            setV2Polar();
+          } else {
+            setV2Rectangular();
+          }
+        }
+
+        function setV1Polar() {
+          $("#polarV1").show();
+          $("#rectangularV1").hide();
+          $("#toggleV1").text("Rectangular");
+          v1IsRectangular = false;
+        }
+
+        function setV1Rectangular() {
+          $("#polarV1").hide();
+          $("#rectangularV1").show();
+          $("#toggleV1").text("Polar");
+          v1IsRectangular = true;
+        }
+
+        function setV2Polar() {
+          $("#polarV2").show();
+          $("#rectangularV2").hide();
+          $("#toggleV2").text("Rectangular");
+          v2IsRectangular = false;
+        }
+
+        function setV2Rectangular() {
+          $("#polarV2").hide();
+          $("#rectangularV2").show();
+          $("#toggleV2").text("Polar");
+          v2IsRectangular = true;
+        }
+        // mostra tooltip
+        function mostartTooltip(message) {
+          $(toolTipId).tooltip('show');
+          $(toolTipId).attr('data-original-title', message);
+        }
+
+        function ocultarTooltip() {
+          // remover el tooltip
+          $(toolTipId).tooltip('hide');
+        }
+
+        function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        // $("#btnSuma").click(function () {
+        //   const r1 = $("#r1").val();
+        //   const img1 = $("#img1").val();
+        //   const r2 = $("#r2").val();
+        //   const img2 = $("#img2").val();
+        //   try {
+        //     const r1 = math.evaluate($("#r1").val());
+        //     console.log(r1);
+        //     const img1 = math.evaluate($("#img1").val());
+        //     console.log(img1);
+        //     const r2 = math.evaluate($("#r2").val());
+        //     console.log(r2);
+        //     const img2 = math.evaluate($("#img2").val());
+        //     console.log(img2);
+        //   } catch (error) {
+        //     console.error("Error al evaluar la expresión:", error);
+        //   }
+        // });
+      </script>
   </body>
 
 </html>
