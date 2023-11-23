@@ -271,7 +271,6 @@
     <!-- js -->
     <script src="view/js/main.js"></script>
     <script>
-      var toolTipId = "";
       var isTransform = false;
       var v1IsRectangular = true;
       var v2IsRectangular = true;
@@ -420,109 +419,107 @@
         var angle2 = $("#grado2");
 
         // validar que los campos son visibles y si son visibles validar que no esten vacioes
-        toolTipId = "#r1";
         if ($("#numV1").is(":visible")) {
-          console.log("numV1 visible");
           if (r1.val() == "") {
-            console.log("r1 vacio");
-            mostartTooltip("El número no puede estar vacio");
+            mostartTooltip("El número no puede estar vacio", "#r1");
             return false;
           } else {
             try {
               r1Val = math.evaluate($("#r1").val());
               console.log("r1Val:", r1Val);
             } catch (error) {
-              alert("Error al evaluar la expresión: \n" + error);
+              var errorMsg = "Error al evaluar la expresión: " + error;
+              mostartTooltip(errorMsg, "#r1");
               return false;
             }
           }
         }
 
-        toolTipId = "#grado1";
         if ($("#anguloV1").is(":visible")) {
           console.log("anguloV1 visible");
           if (angle1.val() == "") {
             console.log("angle1 vacio");
-            mostartTooltip("El ángulo no puede estar vacio");
+            mostartTooltip("El ángulo no puede estar vacio", "#grado1");
             return false;
           } else {
             try {
               angle1Val = math.evaluate($("#grado1").val());
               console.log("angle1Val:", angle1Val);
             } catch (error) {
-              alert("Error al evaluar la expresión: \n" + error);
+              var errorMsg = "Error al evaluar la expresión: " + error;
+              mostartTooltip(errorMsg, "#grado1");
               return false;
             }
           }
         }
 
-        toolTipId = "#img1";
         if ($("#imaginarioV1").is(":visible")) {
           console.log("imaginarioV1 visible");
           if (img1.val() == "") {
             console.log("img1 vacio");
-            mostartTooltip("El número no puede estar vacio");
+            mostartTooltip("El número no puede estar vacio", "#img1");
             return false;
           } else {
             try {
               img1Val = math.evaluate($("#img1").val());
               console.log("img1Val:", img1Val);
             } catch (error) {
-              alert("Error al evaluar la expresión: \n" + error);
+              var errorMsg = "Error al evaluar la expresión: " + error;
+              mostartTooltip(errorMsg, "#img1");
               return false;
             }
           }
         }
 
-        toolTipId = "#r2";
         if ($("#numV2").is(":visible")) {
           console.log("numV2 visible");
           if (r2.val() == "") {
             console.log("r2 vacio");
-            mostartTooltip("El número no puede estar vacio");
+            mostartTooltip("El número no puede estar vacio", "#r2");
             return false;
           } else {
             try {
               r2Val = math.evaluate($("#r2").val());
               console.log("r2Val:", r2Val);
             } catch (error) {
-              alert("Error al evaluar la expresión: \n" + error);
+              var errorMsg = "Error al evaluar la expresión: " + error;
+              mostartTooltip(errorMsg, "#r2");
               return false;
             }
           }
         }
 
-        toolTipId = "#grado2";
         if ($("#anguloV2").is(":visible")) {
           console.log("anguloV2 visible");
           if (angle2.val() == "") {
             console.log("angle2 vacio");
-            mostartTooltip("El ángulo no puede estar vacio");
+            mostartTooltip("El ángulo no puede estar vacio", "#grado2");
             return false;
           } else {
             try {
               angle2Val = math.evaluate($("#grado2").val());
               console.log("angle2Val:", angle2Val);
             } catch (error) {
-              alert("Error al evaluar la expresión: \n" + error);
+              var errorMsg = "Error al evaluar la expresión: " + error;
+              mostartTooltip(errorMsg, "#grado2");
               return false;
             }
           }
         }
 
-        toolTipId = "#img2";
         if ($("#imaginarioV2").is(":visible")) {
           console.log("imaginarioV2 visible");
           if (img2.val() == "") {
             console.log("img2 vacio");
-            mostartTooltip("El número no puede estar vacio");
+            mostartTooltip("El número no puede estar vacio", "#img2");
             return false;
           } else {
             try {
               img2Val = math.evaluate($("#img2").val());
               console.log("img2Val:", img2Val);
             } catch (error) {
-              alert("Error al evaluar la expresión: \n" + error);
+              var errorMsg = "Error al evaluar la expresión: " + error;
+              mostartTooltip(errorMsg, "#img2");
               return false;
             }
           }
@@ -531,7 +528,8 @@
         return true;
       }
 
-      function mostartTooltip(message) {
+      function mostartTooltip(message, toolTipId) {
+        $(toolTipId).tooltip("dispose");
         // Agregar el tooltip
         $(toolTipId).tooltip({
           title: message,
