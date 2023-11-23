@@ -1,4 +1,5 @@
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
+
 html,
 body {
   height: 100%;
@@ -36,18 +37,21 @@ line :not(.vector) {
 }
 
 .btn {
-  font-size: large;
+  font-size: medium;
   font-weight: bold;
   border-radius: 0.5em;
   transition: all 0.2s ease-in-out;
+
   /* si estan focus perderlo instantaneamente */
   &:focus {
     box-shadow: none !important;
     filter: brightness(1) !important;
   }
+
   &:hover {
     box-shadow: none !important;
   }
+
   /* presionados */
   &:active {
     box-shadow: none !important;
@@ -87,6 +91,7 @@ line :not(.vector) {
 .btn-dark {
   color: slategray;
   transition: all 0.5s ease-in-out;
+
   &:hover {
     color: seashell;
     transform: scale(1.05);
@@ -102,34 +107,73 @@ line :not(.vector) {
   0% {
     transform: scale(1);
   }
+
   30% {
     transform: scale(0.97);
   }
+
   60% {
     transform: scale(1.01);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 /* 
 +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+
 |M| |e| |d| |i| |a|   |Q| |u| |e| |y| |r| |r|
 +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+
 */
 
+/* media query para el ancho mas pequeño que el alto */
+@media screen and (max-aspect-ratio: 1/1) {
+  #contenedor {
+    flex-direction: column;
+  }
+
+  #calculadora {
+    width: 100vw;
+    font-size: medium;
+  }
+
+  #svgContainer {
+    width: 100vw;
+    height: 50vh;
+  }
+}
+
 /* media query para modo retrato */
 @media screen and (orientation: portrait) {
   #contenedor {
     flex-direction: column;
   }
+
   #calculadora {
     width: 100vw;
     font-size: medium;
   }
+
   #svgContainer {
     width: 100vw;
     height: 50vh;
+  }
+}
+
+/* media query para el alto mas pequeño que el ancho */
+@media screen and (min-aspect-ratio: 1/1) {
+  #contenedor {
+    flex-direction: row;
+  }
+
+  #calculadora {
+    width: 60vw;
+  }
+
+  #svgContainer {
+    width: 40vw;
+    height: 100vh;
   }
 }
 
@@ -138,9 +182,11 @@ line :not(.vector) {
   #contenedor {
     flex-direction: row;
   }
+
   #calculadora {
     width: 60vw;
   }
+
   #svgContainer {
     width: 40vw;
     height: 100vh;
@@ -152,6 +198,7 @@ line :not(.vector) {
   #contenedor {
     flex-direction: column;
   }
+
   #calculadora {
     width: 100vw;
     height: 100vh;
