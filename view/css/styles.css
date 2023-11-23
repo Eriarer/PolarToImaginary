@@ -1,25 +1,29 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  /* alinear los elementos al centro, centro */
-  align-items: center;
-  justify-content: center;
 }
 
 #contenedor {
-  padding: 0;
-  margin: 0;
   display: flex;
-  gap: 0;
 }
 
-#contenedor>* {
-  margin: 0;
+#calculadora {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+#svgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
 }
 
 .axis-label {
@@ -27,10 +31,99 @@ body {
 }
 
 /* Establecer un valor menor de z-index para las líneas */
-line {
+line :not(.vector) {
   opacity: 0.5;
 }
 
-.vector {
-  opacity: 1;
+.btn {
+  font-size: large;
+  font-weight: bold;
+  border-radius: 0.5em;
+  transition: all 0.2s ease-in-out;
+  /* si estan focus perderlo instantaneamente */
+  &:focus {
+    box-shadow: none !important;
+    filter: brightness(1) !important;
+  }
+  &:hover {
+    box-shadow: none !important;
+  }
+  /* presionados */
+  &:active {
+    box-shadow: none !important;
+    /* oscurecer el background un poco */
+    filter: brightness(0.8) !important;
+    transform: scale(0.98) !important;
+  }
+}
+
+.btn-custom {
+  width: 100%;
+  height: 100%;
+  border: none;
+  color: white !important;
+  font-size: large;
+  font-weight: bold;
+  border-radius: 0.5em;
+}
+
+.btn-sum {
+  background: #27854d;
+}
+
+.btn-res {
+  background: #065d7d;
+}
+
+.btn-mul {
+  background: #a72a09;
+}
+
+.btn-div {
+  background: #af4626;
+}
+/* 
++-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+
+|M| |e| |d| |i| |a|   |Q| |u| |e| |y| |r| |r|
++-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+
+*/
+
+/* media query para modo retrato */
+@media screen and (orientation: portrait) {
+  #contenedor {
+    flex-direction: column;
+  }
+  #calculadora {
+    width: 100vw;
+    font-size: medium;
+  }
+  #svgContainer {
+    width: 100vw;
+    height: 50vh;
+  }
+}
+
+/* media query para modo landscape */
+@media screen and (orientation: landscape) {
+  #contenedor {
+    flex-direction: row;
+  }
+  #calculadora {
+    width: 60vw;
+  }
+  #svgContainer {
+    width: 40vw;
+    height: 100vh;
+  }
+}
+
+/* media query para cuando la pantalla es un cuadrado */
+@media screen and (orientation: square) {
+  #contenedor {
+    flex-direction: column;
+  }
+  #calculadora {
+    width: 100vw;
+    height: 100vh;
+  }
 }
