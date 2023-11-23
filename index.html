@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,18 +10,26 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Boostrap v4.6.% -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-            crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
     <!-- math.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.9.0/math.js"></script>
     <!-- css -->
-    <link rel="stylesheet" href="view/css/styles.css" importance="high">
+    <link rel="stylesheet" href="view/css/styles.css" importance="high" />
   </head>
 
   <body>
@@ -36,12 +43,13 @@
           <div class="col-12 col-md-6 mb-5 mb-md-0">
             <button class="btn btn-dark btn-block" id="btn-calc">OPERAR</button>
           </div>
-          <div class="col-12 col-md-6  mb-0">
-            <button class="btn btn-primary btn-block" id="btn-trans">TRANSFORMAR</button>
+          <div class="col-12 col-md-6 mb-0">
+            <button class="btn btn-primary btn-block" id="btn-trans">
+              TRANSFORMAR
+            </button>
           </div>
         </div>
         <div class="row mt-5" id="controlPanel">
-
           <!-- Vector 1 -->
           <!-- Input V1 -->
           <div class="col-12" id="V1">
@@ -50,37 +58,60 @@
                 <h4 class="text-center">Número en forma</h4>
               </div>
               <div class="col-12 col-md-3 p-1 mb-3">
-                <button id="toggleV1" class="btn btn-secondary btn-block">Polar</button>
+                <button id="toggleV1" class="btn btn-secondary btn-block">
+                  Polar
+                </button>
               </div>
               <!-- Numero -->
               <div class="col-12 col-md-3 mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">R</span>
+                <div id="numV1">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">R</span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Real"
+                      id="r1"
+                    />
                   </div>
-                  <input type="text" class="form-control" placeholder="Real" id="r1">
                 </div>
               </div>
               <div class="col-12 col-md-3 mb-3">
                 <!-- Polar -->
-                <div id="polarV1">
+                <div id="anguloV1">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="nf nf-md-angle_acute"></i></span>
+                      <span class="input-group-text"
+                        ><i class="nf nf-md-angle_acute"></i
+                      ></span>
                     </div>
-                    <input type="text" class="form-control" id="grado1" placeholder="ángulo">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="grado1"
+                      placeholder="ángulo"
+                    />
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="nf nf-weather-degrees"></i></span>
+                      <span class="input-group-text"
+                        ><i class="nf nf-weather-degrees"></i
+                      ></span>
                     </div>
                   </div>
                 </div>
                 <!-- Rectangular -->
-                <div id="rectangularV1">
+                <div id="imaginarioV1">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">j</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="imaginario" id="img1">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="imaginario"
+                      id="img1"
+                    />
                   </div>
                 </div>
               </div>
@@ -95,37 +126,60 @@
             <h4 class="text-center">Número en forma</h4>
           </div>
           <div class="col-12 col-md-3 p-1 mb-3">
-            <button id="toggleV2" class="btn btn-secondary btn-block">Polar</button>
+            <button id="toggleV2" class="btn btn-secondary btn-block">
+              Polar
+            </button>
           </div>
           <!-- Numero -->
           <div class="col-12 col-md-3 mb-3">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">R</span>
+            <div id="numV2">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">R</span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Real"
+                  id="r2"
+                />
               </div>
-              <input type="text" class="form-control" placeholder="Real" id="r1">
             </div>
           </div>
           <div class="col-12 col-md-3 mb-3">
             <!-- Polar -->
-            <div id="polarV2">
+            <div id="anguloV2">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="nf nf-md-angle_acute"></i></span>
+                  <span class="input-group-text"
+                    ><i class="nf nf-md-angle_acute"></i
+                  ></span>
                 </div>
-                <input type="text" class="form-control" id="grado1" placeholder="ángulo">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="grado2"
+                  placeholder="ángulo"
+                />
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="nf nf-weather-degrees"></i></span>
+                  <span class="input-group-text"
+                    ><i class="nf nf-weather-degrees"></i
+                  ></span>
                 </div>
               </div>
             </div>
             <!-- Rectangular -->
-            <div id="rectangularV2">
+            <div id="imaginarioV2">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">j</span>
                 </div>
-                <input type="text" class="form-control" placeholder="imaginario" id="img1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="imaginario"
+                  id="img2"
+                />
               </div>
             </div>
           </div>
@@ -136,44 +190,73 @@
           <div id="cal-btn" class="col-12">
             <div class="row">
               <div class="col-12 col-md-6 mb-3">
-                <button id="btn-sum" class="btn btn-custom btn-block btn-sum">Sumar</button>
+                <button id="btn-sum" class="btn btn-custom btn-block btn-sum">
+                  Sumar
+                </button>
               </div>
               <div class="col-12 col-md-6 mb-3">
-                <button id="btn-min" class="btn btn-custom btn-block btn-res">Restar</button>
+                <button id="btn-min" class="btn btn-custom btn-block btn-res">
+                  Restar
+                </button>
               </div>
               <div class="col-12 col-md-6 mb-3">
-                <button id="btn-mul" class="btn btn-custom btn-block btn-mul">Multiplicar</button>
+                <button id="btn-mul" class="btn btn-custom btn-block btn-mul">
+                  Multiplicar
+                </button>
               </div>
               <div class="col-12 col-md-6 mb-3">
-                <button id="btn-div" class="btn btn-custom btn-block btn-div">Dividir</button>
+                <button id="btn-div" class="btn btn-custom btn-block btn-div">
+                  Dividir
+                </button>
               </div>
             </div>
+          </div>
+          <div id="trans-btn" class="col-12">
+            <button id="resultado" class="btn btn-custom btn-block btn-sum">
+              Transformar
+            </button>
           </div>
         </div>
 
         <!-- Resultado -->
-        <div class="row mb-3  butons">
-          <h2 class="text-center ">Resultado</h2>
+        <div class="row mb-3 butons">
+          <h2 class="text-center">Resultado</h2>
         </div>
         <div class="row mb-3 answ" id="ansRectangular">
           <!-- Rectangular -->
           <div class="col">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="nf nf-md-rectangle_outline"></i></span>
+                <span class="input-group-text"
+                  ><i class="nf nf-md-rectangle_outline"></i
+                ></span>
               </div>
-              <input type="text" class="form-control" placeholder="Rectangular" id="resRect" readonly>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Rectangular"
+                id="resRect"
+                readonly
+              />
             </div>
           </div>
         </div>
         <!-- Polar -->
-        <div class="row mb-3  answ" id="ansPolar">
+        <div class="row mb-3 answ" id="ansPolar">
           <div class="col">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="nf nf-fa-magnet"></i></span>
+                <span class="input-group-text"
+                  ><i class="nf nf-fa-magnet"></i
+                ></span>
               </div>
-              <input type="text" class="form-control" placeholder="Polar" id="resPolar" readonly>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Polar"
+                id="resPolar"
+                readonly
+              />
             </div>
           </div>
         </div>
@@ -182,171 +265,320 @@
       <div id="svgContainer">
         <svg id="graphContainer"></svg>
       </div>
-      <!-- D3.js -->
-      <script src="https://d3js.org/d3.v4.min.js"></script>
-      <!-- js -->
-      <script src="view/js/main.js"></script>
-      <script>
-        const toolTipId = "#tooltip";
-        let isTransform = true;
-        let v1IsRectangular = true;
-        let v2IsRectangular = true;
-        $(document).ready(function () {
-          stratView();
-          // al hacer click en la pantalla ocultar tooltip
-          $(window).click(function () {
-            ocultarTooltip();
-          });
-        }); // Fin DOM ready
+    </div>
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- js -->
+    <script src="view/js/main.js"></script>
+    <script>
+      let toolTipId = "";
+      let isTransform = false;
+      let v1IsRectangular = true;
+      let v2IsRectangular = true;
+      $(document).ready(function () {
+        stratView();
+        $("#resultado").click(function () {
+          if (!validateInputs()) {
+            return;
+          }
+        });
+        // al hacer click en la pantalla ocultar tooltip
+        $(window).click(function () {
+          ocultarTooltip();
+        });
+      });
 
-        // empieza en el menu de transformar
-        function stratView() {
-          $("#polarV1").hide();
+      // empieza en el menu de transformar
+      function stratView() {
+        toggleView();
+
+        $("#toggleV1").click(function () {
+          toggleV1();
+        });
+
+        $("#toggleV2").click(function () {
+          toggleV2();
+        });
+
+        $("#btn-calc").click(function () {
+          if (isTransform) {
+            toggleView();
+          }
+        });
+
+        $("#btn-trans").click(function () {
+          if (!isTransform) {
+            toggleView();
+          }
+        });
+      }
+
+      function toggleView() {
+        if (isTransform) {
+          setV1Polar();
+          setV2Polar();
+          $("#numV2").show();
+          $("#anguloV2").show();
+          $("#imaginarioV2").hide();
+          $("#imaginarioV1").hide();
+          $("#V2").show();
+          $("#cal-btn").show();
+          $("#ansRectangular").show();
+          $("#resultado").hide();
+          $("#btn-calc").removeClass("btn-dark").addClass("btn-primary");
+          $("#btn-trans").removeClass("btn-primary").addClass("btn-dark");
+        } else {
+          setV1Polar();
+          setV2Polar();
+          $("#numV2").hide();
+          $("#anguloV2").hide();
+          $("#imaginarioV2").hide();
+          $("#imaginarioV1").hide();
           $("#V2").hide();
           $("#cal-btn").hide();
           $("#ansRectangular").hide();
-
-          $("#toggleV1").click(function () {
-            toggleV1();
-          });
-
-          $("#toggleV2").click(function () {
-            toggleV2();
-          });
-
-          $("#btn-calc").click(function () {
-            if (isTransform) {
-              toggleView();
-            }
-          });
-
-          $("#btn-trans").click(function () {
-            if (!isTransform) {
-              toggleView();
-            }
-          });
+          $("#resultado").show();
+          $("#btn-calc").removeClass("btn-primary").addClass("btn-dark");
+          $("#btn-trans").removeClass("btn-dark").addClass("btn-primary");
         }
+        // agregarle a los botnes .butons, a las respuestas .answ y a v1 y v2/
+        // la clase popOutIn y cuando termine la animacion quitarla
+        $(".butons").addClass("popOutIn");
+        $(".answ").addClass("popOutIn");
+        $("#V1").addClass("popOutIn");
+        $("#V2")
+          .addClass("popOutIn")
+          .one("animationend", function () {
+            $(".butons").removeClass("popOutIn");
+            $(".answ").removeClass("popOutIn");
+            $("#V1").removeClass("popOutIn");
+            $("#V2").removeClass("popOutIn");
+          });
+        isTransform = !isTransform;
+      }
 
-        function toggleView() {
+      function toggleV1() {
+        if (v1IsRectangular) {
+          setV1Polar();
           if (isTransform) {
-            setV1Polar();
-            $("#V2").show();
-            setV2Polar();
-            $("#cal-btn").show();
+            $("#ansPolar").hide();
             $("#ansRectangular").show();
-            $("#btn-calc").removeClass("btn-dark")
-              .addClass("btn-primary");
-            $("#btn-trans").removeClass("btn-primary")
-              .addClass("btn-dark");
-          } else {
-            setV1Rectangular();
-            $("#V2").hide();
-            $("#cal-btn").hide();
+          }
+        } else {
+          setV1Rectangular();
+          if (isTransform) {
+            $("#ansPolar").show();
             $("#ansRectangular").hide();
-            $("#btn-calc").removeClass("btn-primary")
-              .addClass("btn-dark");
-            $("#btn-trans").removeClass("btn-dark")
-              .addClass("btn-primary");
           }
-          // agregarle a los botnes .butons, a las respuestas .answ y a v1 y v2/
-          // la clase popOutIn y cuando termine la animacion quitarla
-          $(".butons").addClass("popOutIn");
-          $(".answ").addClass("popOutIn");
-          $("#V1").addClass("popOutIn");
-          $("#V2").addClass("popOutIn")
-            .one("animationend", function () {
-              $(".butons").removeClass("popOutIn");
-              $(".answ").removeClass("popOutIn");
-              $("#V1").removeClass("popOutIn");
-              $("#V2").removeClass("popOutIn");
-            });
-          isTransform = !isTransform;
         }
+      }
 
-        function toggleV1() {
-          if (v1IsRectangular) {
-            setV1Polar();
-            if (isTransform) {
-              $("#ansPolar").hide();
-              $("#ansRectangular").show();
-            }
+      function toggleV2() {
+        if (v2IsRectangular) {
+          setV2Polar();
+        } else {
+          setV2Rectangular();
+        }
+      }
+
+      function setV1Polar() {
+        $("#anguloV1").show();
+        $("#imaginarioV1").hide();
+        $("#toggleV1").text("Polar");
+        v1IsRectangular = false;
+      }
+
+      function setV1Rectangular() {
+        $("#anguloV1").hide();
+        $("#imaginarioV1").show();
+        $("#toggleV1").text("Rectangular");
+        v1IsRectangular = true;
+      }
+
+      function setV2Polar() {
+        $("#anguloV2").show();
+        $("#imaginarioV1").hide();
+        $("#toggleV2").text("Polar");
+        v2IsRectangular = false;
+      }
+
+      function setV2Rectangular() {
+        $("#anguloV2").hide();
+        $("#imaginarioV1").show();
+        $("#toggleV2").text("Rectangular");
+        v2IsRectangular = true;
+      }
+
+      function validateInputs() {
+        var r1 = $("#r1");
+        var img1 = $("#img1");
+        var angle1 = $("#grado1");
+        var r2 = $("#r2");
+        var img2 = $("#img2");
+        var angle2 = $("#grado2");
+        var r1Val,
+          img1Val,
+          angle1Val,
+          r2Val,
+          img2Val,
+          angle2Val = "";
+
+        // validar que los campos son visibles y si son visibles validar que no esten vacioes
+        toolTipId = "#r1";
+        if ($("#numV1").is(":visible")) {
+          console.log("numV1 visible");
+          if (r1.val() == "") {
+            console.log("r1 vacio");
+            mostartTooltip("El número no puede estar vacio");
+            return false;
           } else {
-            setV1Rectangular();
-            if (isTransform) {
-              $("#ansPolar").show();
-              $("#ansRectangular").hide();
+            try {
+              r1Val = math.evaluate($("#r1").val());
+              console.log("r1Val:", r1Val);
+            } catch (error) {
+              alert("Error al evaluar la expresión: \n" + error);
+              return false;
             }
           }
         }
 
-        function toggleV2() {
-          if (v2IsRectangular) {
-            setV2Polar();
+        toolTipId = "#grado1";
+        if ($("#anguloV1").is(":visible")) {
+          console.log("anguloV1 visible");
+          if (angle1.val() == "") {
+            console.log("angle1 vacio");
+            mostartTooltip("El ángulo no puede estar vacio");
+            return false;
           } else {
-            setV2Rectangular();
+            try {
+              angle1Val = math.evaluate($("#grado1").val());
+              console.log("angle1Val:", angle1Val);
+            } catch (error) {
+              alert("Error al evaluar la expresión: \n" + error);
+              return false;
+            }
           }
         }
 
-        function setV1Polar() {
-          $("#polarV1").show();
-          $("#rectangularV1").hide();
-          $("#toggleV1").text("Rectangular");
-          v1IsRectangular = false;
+        toolTipId = "#img1";
+        if ($("#imaginarioV1").is(":visible")) {
+          console.log("imaginarioV1 visible");
+          if (img1.val() == "") {
+            console.log("img1 vacio");
+            mostartTooltip("El número no puede estar vacio");
+            return false;
+          } else {
+            try {
+              img1Val = math.evaluate($("#img1").val());
+              console.log("img1Val:", img1Val);
+            } catch (error) {
+              alert("Error al evaluar la expresión: \n" + error);
+              return false;
+            }
+          }
         }
 
-        function setV1Rectangular() {
-          $("#polarV1").hide();
-          $("#rectangularV1").show();
-          $("#toggleV1").text("Polar");
-          v1IsRectangular = true;
+        toolTipId = "#r2";
+        if ($("#numV2").is(":visible")) {
+          console.log("numV2 visible");
+          if (r2.val() == "") {
+            console.log("r2 vacio");
+            mostartTooltip("El número no puede estar vacio");
+            return false;
+          } else {
+            try {
+              r2Val = math.evaluate($("#r2").val());
+              console.log("r2Val:", r2Val);
+            } catch (error) {
+              alert("Error al evaluar la expresión: \n" + error);
+              return false;
+            }
+          }
         }
 
-        function setV2Polar() {
-          $("#polarV2").show();
-          $("#rectangularV2").hide();
-          $("#toggleV2").text("Rectangular");
-          v2IsRectangular = false;
+        toolTipId = "#grado2";
+        if ($("#anguloV2").is(":visible")) {
+          console.log("anguloV2 visible");
+          if (angle2.val() == "") {
+            console.log("angle2 vacio");
+            mostartTooltip("El ángulo no puede estar vacio");
+            return false;
+          } else {
+            try {
+              angle2Val = math.evaluate($("#grado2").val());
+              console.log("angle2Val:", angle2Val);
+            } catch (error) {
+              alert("Error al evaluar la expresión: \n" + error);
+              return false;
+            }
+          }
         }
 
-        function setV2Rectangular() {
-          $("#polarV2").hide();
-          $("#rectangularV2").show();
-          $("#toggleV2").text("Polar");
-          v2IsRectangular = true;
-        }
-        // mostra tooltip
-        function mostartTooltip(message) {
-          $(toolTipId).tooltip('show');
-          $(toolTipId).attr('data-original-title', message);
+        toolTipId = "#img2";
+        if ($("#imaginarioV2").is(":visible")) {
+          console.log("imaginarioV2 visible");
+          if (img2.val() == "") {
+            console.log("img2 vacio");
+            mostartTooltip("El número no puede estar vacio");
+            return false;
+          } else {
+            try {
+              img2Val = math.evaluate($("#img2").val());
+              console.log("img2Val:", img2Val);
+            } catch (error) {
+              alert("Error al evaluar la expresión: \n" + error);
+              return false;
+            }
+          }
         }
 
-        function ocultarTooltip() {
-          // remover el tooltip
-          $(toolTipId).tooltip('hide');
-        }
+        toolTipId = "";
+        return true;
+      }
 
-        function sleep(ms) {
-          return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        // $("#btnSuma").click(function () {
-        //   const r1 = $("#r1").val();
-        //   const img1 = $("#img1").val();
-        //   const r2 = $("#r2").val();
-        //   const img2 = $("#img2").val();
-        //   try {
-        //     const r1 = math.evaluate($("#r1").val());
-        //     console.log(r1);
-        //     const img1 = math.evaluate($("#img1").val());
-        //     console.log(img1);
-        //     const r2 = math.evaluate($("#r2").val());
-        //     console.log(r2);
-        //     const img2 = math.evaluate($("#img2").val());
-        //     console.log(img2);
-        //   } catch (error) {
-        //     console.error("Error al evaluar la expresión:", error);
-        //   }
-        // });
-      </script>
+      function mostartTooltip(message) {
+        alert(message);
+        $("[data-toggle='tooltip']").tooltip();
+        // agregar el tooltip
+        var tooltipElement = $(toolTipId);
+        tooltipElement.tooltip({
+          title: message,
+          placement: "top",
+          trigger: "manual",
+          data: { toggle: "tooltip" },
+        });
+
+        // mostrar el tooltip
+        tooltipElement.tooltip("show");
+      }
+
+      // ocultar tooltip
+      function ocultarTooltip() {
+        // remover el tooltip
+        $(toolTipId).tooltip("dispose");
+      }
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+      // $("#btnSuma").click(function () {
+      //   const r1 = $("#r1").val();
+      //   const img1 = $("#img1").val();
+      //   const r2 = $("#r2").val();
+      //   const img2 = $("#img2").val();
+      //   try {
+      //     const r1 = math.evaluate($("#r1").val());
+      //     console.log(r1);
+      //     const img1 = math.evaluate($("#img1").val());
+      //     console.log(img1);
+      //     const r2 = math.evaluate($("#r2").val());
+      //     console.log(r2);
+      //     const img2 = math.evaluate($("#img2").val());
+      //     console.log(img2);
+      //   } catch (error) {
+      //     console.error("Error al evaluar la expresión:", error);
+      //   }
+      // });
+    </script>
   </body>
-
 </html>
