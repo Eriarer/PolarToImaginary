@@ -55,11 +55,6 @@ function initGraph() {
     .attr("width", 0)
     .attr("height", 0);
 
-  // dibujar los vectores
-  for (var i = 0; i < vectors.length; i++) {
-    var vector = initVector(vectors[i][0], vectors[i][1], vectors[i][2]);
-    vectorList.push(vector);
-  }
 
   updateDom();
 
@@ -141,21 +136,6 @@ function updateGraph() {
 
   svg.attr("width", width)
     .attr("height", height);
-
-  if (vectorList.length > 0) {
-    vectors[0][1].x = 500;
-    vectors[1][0].x = 500;
-    vectors[1][1].x = 500;
-    vectors[1][1].y = 200;
-    vectors[2][1].x = 500;
-    vectors[2][1].y = 200;
-
-    for (var i = 0; i < vectors.length; i++) {
-      updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
-    }
-
-    updateDom();
-  }
 
   xAxis = d3.scaleLinear()
     .domain([-xDom, xDom])
