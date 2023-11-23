@@ -1,6 +1,4 @@
-var ticks,
-  xDom, yDom,
-  real, imaginario,
+var
   width, height, margin,
   svg,
   xAxis, yAxis,
@@ -8,6 +6,10 @@ var ticks,
   gridX, gridY,
   vectorX, vectorY = null;
 
+var ticks,
+  xDom, yDom,
+  real, imaginario,
+  side = 0;
 var vectors = [
   [{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "red"],
   [{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "blue"],
@@ -16,15 +18,11 @@ var vectors = [
 var vectorList = [];
 
 $(document).ready(function () {
-  getScreenSize();
-  //             origen            fin
+  setScreensize();
 
   updateDom();
   //  obtener el tamaño del contenedor
-  width = Math.trunc($("svg").width());
-  height = Math.trunc($("svg").height());
-  $("svg").attr("width", width)
-    .attr("height", height);
+
   // definir el margin en terminos de em
   margin = {
     top: 40,
@@ -33,10 +31,10 @@ $(document).ready(function () {
     right: 40
   };
   // Establecer el tamaño del contenedor SVG
-  drawGraph();
+  initGraph();
   // dibujar los vectores
   for (var i = 0; i < vectors.length; i++) {
-    vectorList.push(drawVector(vectors[i][0], vectors[i][1], vectors[i][2]));
+    vectorList.push(initVector(vectors[i][0], vectors[i][1], vectors[i][2]));
   }
   updateDom();
   updateGraph();
@@ -46,7 +44,7 @@ $(document).ready(function () {
   }
 
   $(window).resize(function () {
-    getScreenSize();
+    setScreensize();
 
     for (var i = 0; i < vectors.length; i++) {
       updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
@@ -58,46 +56,16 @@ $(document).ready(function () {
 
 });// DOM on LOAD
 
-function getScreenSize() {
-  // Obtener el tamaño de la ventana
-  var ancho = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  var alto = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  // Calcular el lado del cuadrado
-  var side;
-  if (ancho > alto) {//modo paisaje
-    side = alto * 2 >= ancho ? ancho / 2 : alto;
-    // por lo tanto el flex direction es row y alinar los elementos al centro vertical
-    $("#contenedor").css("flex-direction", "row")
-      .attr("width", side * 2)
-      .attr("height", side);
-  } else if (ancho < alto) { // modo retrato
-    side = ancho * 2 >= alto ? alto / 2 : ancho;
-    // por lo tanto el flex direction es column y alinear los elementos al centro horizontal
-    $("#contenedor").css("flex-direction", "column")
-      .attr("width", side)
-      .attr("height", side * 2)
-      .css("align-items", "center");
-  } else {
-    side = ancho - 20; // ancho menos 20 pixeles del scroll
-    // por lo tanto el flex direction es row y alinar los elementos al centro vertical
-    $("#contenedor").css("flex-direction", "column")
-      .attr("width", side)
-      .attr("height", side * 2);
-    $("body").attr("display", "block").
-      css("align-items", "unset")
-      .css("justify-content", "unset");
-  }
-  // Establecer el tamaño de los elementos
-  $("svg").css("width", side).css("height", side);
-  $("#calculadora").css("width", side).css("height", side);
-  // Actualizar otras propiedades según sea necesario
-  width = Math.trunc($("svg").width());
-  height = Math.trunc($("svg").height());
-  $("#calculadora").attr("width", side).attr("height", side);
-  $("svg").attr("width", side).attr("height", side);
+function setScreensize() {
+  width = Math.trunc($("#svgContainer").width());
+  height = Math.trunc($("#svgContainer").height());
+  side = Math.min(width, height);
+  width = side;
+  height = side;
+  $("svg").attr("width", width).attr("height", height);
 }
 
-function drawGraph() {
+function initGraph() {
   // Crear el contenedor SVG
   svg = d3.select("svg").append("svg")
     .attr("width", 0)
@@ -189,9 +157,9 @@ function updateGraph() {
     .domain([-yDom, yDom])
     .range([height - margin.bottom, margin.top]);
 
-  modifyScale();
+  updateSclae();
 
-  updateGrid();
+  drawGrid();
 
   // Seleccionar y aplicar la transición al eje x
   svg.select(".x.axis")
@@ -208,17 +176,13 @@ function updateGraph() {
     .call(yScale);
 }
 
-
-function modifyScale() {
+function updateSclae() {
   switch (true) {
     case (width >= 0 && width < 768):
       ticks = 10;
       break;
-    case (width >= 768 && width < 992):
-      ticks = 20;
-      break;
     default:
-      ticks = 40;
+      ticks = 20;
   }// switch
   var tickStepX = (2 * xDom) / ticks;
   var tickStepY = (2 * yDom) / ticks;
@@ -242,7 +206,7 @@ function modifyScale() {
     });
 }// modifyScale
 
-function updateGrid() {
+function drawGrid() {
   if (ticks <= gridX.length) {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
@@ -329,7 +293,7 @@ function updateGrid() {
   }
 }
 
-function drawVector(origin, end, color = "black") {
+function initVector(origin, end, color = "black") {
   return svg.append("line")
     .attr("class", "vector")
     .attr("x1", origin.x)
@@ -356,15 +320,8 @@ function updateVector(vector, origin, end) {
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 }
 
-// recorrer los elementos del arreglo
-// y ajustar el domino de la gráfica de los ejes
+// recorrer los elementos del arreglo y ajustar el domino de la gráfica de los ejes
 // al valor mayor de los elementos del arreglo
-// los dominios de los ejes seran absolutos
-// si el numero es 0.5 el dominio será 1
-// si el numero es 8 el dominio será 10
-// si el numero es 300 el dominio será 300
-// si el numero es 1578 el dominio será 2000
-// el dominio va aumnetando en potencias de 10
 function updateDom() {
   var xMax = 0;
   var yMax = 0;
@@ -402,6 +359,4 @@ function updateDom() {
     yDom = yMax % i === 0 ? yMax : yMax + (i - yMax % i);
     break;
   }
-
-
 }
