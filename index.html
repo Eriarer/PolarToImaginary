@@ -34,7 +34,7 @@
 
   <body>
     <div id="contenedor">
-      <div id="calculadora" class="container mt-4">
+      <div id="calculadora" class="container">
         <div class="row mb-2 mb-md-5">
           <div class="col-12 mb-4">
             <h1 class="text-center">Calculadora de números complejos</h1>
@@ -222,8 +222,8 @@
         <div class="row mb-3 butons">
           <h2 class="text-center">Resultado</h2>
         </div>
+        <!-- Rectangular -->
         <div class="row mb-3 answ" id="ansRectangular">
-          <!-- Rectangular -->
           <div class="col">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -271,20 +271,22 @@
     <!-- js -->
     <script src="view/js/main.js"></script>
     <script>
-      let toolTipId = "";
-      let isTransform = false;
-      let v1IsRectangular = true;
-      let v2IsRectangular = true;
+      var toolTipId = "";
+      var isTransform = false;
+      var v1IsRectangular = true;
+      var v2IsRectangular = true;
+      var r1Val,
+        img1Val,
+        angle1Val,
+        r2Val,
+        img2Val,
+        angle2Val = "";
       $(document).ready(function () {
         stratView();
         $("#resultado").click(function () {
           if (!validateInputs()) {
             return;
           }
-        });
-        // al hacer click en la pantalla ocultar tooltip
-        $(window).click(function () {
-          ocultarTooltip();
         });
       });
 
@@ -397,14 +399,14 @@
 
       function setV2Polar() {
         $("#anguloV2").show();
-        $("#imaginarioV1").hide();
+        $("#imaginarioV2").hide();
         $("#toggleV2").text("Polar");
         v2IsRectangular = false;
       }
 
       function setV2Rectangular() {
         $("#anguloV2").hide();
-        $("#imaginarioV1").show();
+        $("#imaginarioV2").show();
         $("#toggleV2").text("Rectangular");
         v2IsRectangular = true;
       }
@@ -416,12 +418,6 @@
         var r2 = $("#r2");
         var img2 = $("#img2");
         var angle2 = $("#grado2");
-        var r1Val,
-          img1Val,
-          angle1Val,
-          r2Val,
-          img2Val,
-          angle2Val = "";
 
         // validar que los campos son visibles y si son visibles validar que no esten vacioes
         toolTipId = "#r1";
@@ -532,30 +528,25 @@
           }
         }
 
-        toolTipId = "";
         return true;
       }
 
       function mostartTooltip(message) {
-        alert(message);
-        $("[data-toggle='tooltip']").tooltip();
-        // agregar el tooltip
-        var tooltipElement = $(toolTipId);
-        tooltipElement.tooltip({
+        // Agregar el tooltip
+        $(toolTipId).tooltip({
           title: message,
           placement: "top",
           trigger: "manual",
-          data: { toggle: "tooltip" },
         });
+        // Mostrar el tooltip
+        $(toolTipId).tooltip("show");
 
-        // mostrar el tooltip
-        tooltipElement.tooltip("show");
-      }
-
-      // ocultar tooltip
-      function ocultarTooltip() {
-        // remover el tooltip
-        $(toolTipId).tooltip("dispose");
+        sleep(2000).then(() => {
+          // Ocultar el tooltip
+          $(toolTipId).tooltip("hide");
+          $(toolTipId).tooltip("dispose");
+          toolTipId = "";
+        });
       }
 
       function sleep(ms) {
