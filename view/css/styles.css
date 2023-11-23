@@ -82,6 +82,15 @@ line :not(.vector) {
 .btn-div {
   background: #af4626;
 }
+
+.btn-dark {
+  color: slategray;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    color: seashell;
+    transform: scale(1.05);
+  }
+}
 /* 
 +-+ +-+ +-+ +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+
 |M| |e| |d| |i| |a|   |Q| |u| |e| |y| |r| |r|
