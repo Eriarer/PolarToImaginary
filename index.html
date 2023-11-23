@@ -154,6 +154,18 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <!-- js -->
     <script src="view/js/main.js"></script>
+
+      // mostra tooltip
+      function mostartTooltip(message) {
+        $(toolTipId).tooltip('show');
+        $(toolTipId).attr('data-original-title', message);
+      }
+
+      function ocultarTooltip() {
+        // remover el tooltip
+        $(toolTipId).tooltip('hide');
+      }
+
       // $("#btnSuma").click(function () {
       //   const r1 = $("#r1").val();
       //   const img1 = $("#img1").val();
