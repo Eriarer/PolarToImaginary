@@ -16,27 +16,18 @@ var vectors = [
   [{ x: 0, y: 0 }, { x: 0, y: 0 }, color = "green"]
 ];
 var vectorList = [];
-
+// definir el margin en terminos de em
+margin = {
+  top: 40,
+  bottom: 40,
+  left: 40,
+  right: 40
+};
 $(document).ready(function () {
-  setScreensize();
 
-  updateDom();
-  //  obtener el tamaño del contenedor
-
-  // definir el margin en terminos de em
-  margin = {
-    top: 40,
-    bottom: 40,
-    left: 40,
-    right: 40
-  };
   // Establecer el tamaño del contenedor SVG
   initGraph();
-  // dibujar los vectores
-  for (var i = 0; i < vectors.length; i++) {
-    vectorList.push(initVector(vectors[i][0], vectors[i][1], vectors[i][2]));
-  }
-  updateDom();
+
   updateGraph();
 
   for (var i = 0; i < vectors.length; i++) {
@@ -44,14 +35,7 @@ $(document).ready(function () {
   }
 
   $(window).resize(function () {
-    setScreensize();
-
-    for (var i = 0; i < vectors.length; i++) {
-      updateVector(vectorList[i], vectors[i][0], vectors[i][1]);
-    }
     updateGraph();
-
-
   });
 
 });// DOM on LOAD
@@ -66,11 +50,20 @@ function setScreensize() {
 }
 
 function initGraph() {
+  setScreensize();
+
   // Crear el contenedor SVG
   svg = d3.select("svg").append("svg")
     .attr("width", 0)
     .attr("height", 0);
 
+  // dibujar los vectores
+  for (var i = 0; i < vectors.length; i++) {
+    var vector = initVector(vectors[i][0], vectors[i][1], vectors[i][2]);
+    vectorList.push(vector);
+  }
+
+  updateDom();
 
   xAxis = d3.scaleLinear()
     .domain([-0, 0])
@@ -138,12 +131,17 @@ function initGraph() {
 }// drawGraph
 
 function updateGraph() {
+  setScreensize();
+
   vectors[0][1].x = 500;
   vectors[1][0].x = 500;
   vectors[1][1].x = 500;
   vectors[1][1].y = 200;
   vectors[2][1].x = 500;
   vectors[2][1].y = 200;
+
+
+
   updateDom();
 
   svg.attr("width", width)
