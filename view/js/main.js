@@ -360,3 +360,29 @@ function updateDom() {
     break;
   }
 }
+
+function removeAllVectors() {
+  // reccorrer el vector de vectores y poner sus posiciones en 0,0 y actualizarlos despues eliminarlos
+  for (var i = 0; i < vectorList.length; i++) {
+    vectorList[i].transition()
+      .duration(1000)
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 0)
+      .attr("y2", 0);
+  }
+  sleep(1000).then(() => {
+    for (var i = 0; i < vectorList.length; i++) {
+      vectorList[i].remove();
+    }
+  });
+  vectorList = [];
+}
+
+sleep(2000).then(() => {
+  removeAllVectors();
+});
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
