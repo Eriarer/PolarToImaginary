@@ -441,7 +441,6 @@ function removeVector(pos) {
   if (pos < 0 || pos >= vectors.length) {
     return;
   }
-  isDelitingVectors = true;
   vectors[pos][0] = { x: 0, y: 0 };
   vectors[pos][1] = { x: 0, y: 0 };
   // que la transición sea de 300ms easeSinInOut
@@ -452,9 +451,7 @@ function removeVector(pos) {
     .attr("y1", 0)
     .attr("x2", 0)
     .attr("y2", 0);
-  sleep(500).then(() => {
-    isDelitingVectors = false;
-  });
+
   updateGraph();
 }
 
@@ -467,7 +464,7 @@ function removeAllVectors() {
   for (var i = 0; i < vectorList.length; i++) {
     removeVector(i);
   }
-  sleep(1000).then(() => {
+  sleep(500).then(() => {
     isDelitingVectors = false;
   });
 }

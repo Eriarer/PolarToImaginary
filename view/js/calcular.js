@@ -580,6 +580,7 @@ function drawV1() {
   var num, img = null;
   if (!getVectorIs0(2)) {
     removeVector(2);
+    drawV2();
   }
   // Evaluar la parte real
   if ($("#r1").val() === "") {
@@ -641,6 +642,7 @@ function drawV2() {
   var num, img = null;
   if (!getVectorIs0(2)) {
     removeVector(2);
+    drawV1();
   }
   // Evaluar la parte real
   if ($("#r2").val() === "") {
@@ -703,5 +705,14 @@ function verifyInput(num) {
 }
 
 function drawAnsVec() {
+  if (!getVectorIs0(0) || !getVectorIs0(1)) {
+    changeVector(0, undefined, { x: answerR, y: answerI }, undefined);
+    changeVector(1, undefined, { x: answerR, y: answerI }, undefined);
+    sleep(1400).then(() => {
+      removeVector(0);
+      removeVector(1);
+    });
+  }
   changeVector(2, undefined, { x: answerR, y: answerI }, undefined);
+
 }
