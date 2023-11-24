@@ -1,4 +1,4 @@
-var isTransform = false;
+var isTransform = true;
 var v1IsRectangular = true;
 var v2IsRectangular = true;
 var r1Val, img1Val, angle1Val,
@@ -301,6 +301,7 @@ function divVector() {
 function stratView() {
   toggleView();
   setV1Polar();
+  setV2Polar();
 
   $("#toggleV1").click(function () {
     toggleV1();
