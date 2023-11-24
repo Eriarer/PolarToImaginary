@@ -7,9 +7,20 @@ var r1Val,
   r2Val,
   img2Val,
   angle2Val = "";
+
 $(document).ready(function () {
   stratView();
   addingButtonActions();
+
+  $("#r1").on("input", function () {
+    drawV1();
+  });
+  $("#img1").on("input", function () {
+    drawV1();
+  });
+  $("#grado1").on("input", function () {
+    drawV1();
+  });
 });
 
 function addingButtonActions() {
@@ -58,12 +69,10 @@ function transformRectangularToPolar(realVal, imgVal) {
   // calcular el angulo con los valores realVal e imgVal
   var angle = math.atan2(imgVal, realVal);
   // convertir a grados
-  angle = math.round(math.multiply(angle, 180 / math.pi), 3);
+  angle = math.multiply(angle, 180 / math.pi);
   // truncar a 3 decimales
   angle = math.round(angle, 3);
-  var num = math.sqrt(
-    math.add(math.square(realVal), math.square(imgVal))
-  );
+  var num = math.sqrt(math.add(math.square(realVal), math.square(imgVal)));
   // truncar a 3 decimales
   num = math.round(num, 3);
   $("#resPolar").val(num + " ∠ " + angle + "°");
@@ -72,7 +81,7 @@ function transformRectangularToPolar(realVal, imgVal) {
 function transformPolarToRectangular(num, angleVal) {
   // angulo viene en grados
   // convertir a radianes
-  angleVal = math.round(math.multiply(angleVal, math.pi / 180), 3);
+  angleVal = math.multiply(angleVal, math.pi / 180);
   // calcular la parte real
   var real = math.multiply(num, math.cos(angleVal));
   // calcular la parte imaginaria
@@ -99,13 +108,13 @@ function addVectors() {
   img2 = img2Val;
   if (!v1IsRectangular) {
     // convertir a radianes el angulo
-    var angle1 = math.round(math.multiply(angle1Val, math.pi / 180), 3);
+    var angle1 = math.multiply(angle1Val, math.pi / 180);
     real1 = r1Val * math.cos(angle1);
     img1 = r1Val * math.sin(angle1);
   }
   if (!v2IsRectangular) {
     // convertir a radianes el angulo
-    var angle2 = math.round(math.multiply(angle2Val, math.pi / 180), 3);
+    var angle2 = math.multiply(angle2Val, math.pi / 180);
     real2 = r2Val * math.cos(angle2);
     img2 = r2Val * math.sin(angle2);
   }
@@ -116,7 +125,7 @@ function addVectors() {
   numRes = math.sqrt(math.add(math.square(realRes), math.square(imgRes)));
   angleRes = math.atan2(imgRes, realRes);
   // convertir a grados
-  angleRes = math.round(math.multiply(angleRes, 180 / math.pi), 3);
+  angleRes = math.multiply(angleRes, 180 / math.pi);
   // truncar a 3 decimales
   realRes = math.round(realRes, 3);
   imgRes = math.round(imgRes, 3);
@@ -143,13 +152,13 @@ function subVector() {
   // pasar los 2 vectores a rectangular
   if (!v1IsRectangular) {
     // convertir a radianes el angulo
-    var angle1 = math.round(math.multiply(angle1Val, math.pi / 180), 3);
+    var angle1 = math.multiply(angle1Val, math.pi / 180);
     real1 = r1Val * math.cos(angle1);
     img1 = r1Val * math.sin(angle1);
   }
   if (!v2IsRectangular) {
     // convertir a radianes el angulo
-    var angle2 = math.round(math.multiply(angle2Val, math.pi / 180), 3);
+    var angle2 = math.multiply(angle2Val, math.pi / 180);
     real2 = r2Val * math.cos(angle2);
     img2 = r2Val * math.sin(angle2);
   }
@@ -160,7 +169,7 @@ function subVector() {
   numRes = math.sqrt(math.add(math.square(realRes), math.square(imgRes)));
   angleRes = math.atan2(imgRes, realRes);
   // convertir a grados
-  angleRes = math.round(math.multiply(angleRes, 180 / math.pi), 3);
+  angleRes = math.multiply(angleRes, 180 / math.pi);
   // truncar a 3 decimales
   realRes = math.round(realRes, 3);
   imgRes = math.round(imgRes, 3);
@@ -187,13 +196,13 @@ function mulVector() {
   // pasar los 2 vectores a rectangular
   if (!v1IsRectangular) {
     // convertir a radianes el angulo
-    var angle1 = math.round(math.multiply(angle1Val, math.pi / 180), 3);
+    var angle1 = math.multiply(angle1Val, math.pi / 180);
     real1 = r1Val * math.cos(angle1);
     img1 = r1Val * math.sin(angle1);
   }
   if (!v2IsRectangular) {
     // convertir a radianes el angulo
-    var angle2 = math.round(math.multiply(angle2Val, math.pi / 180), 3);
+    var angle2 = math.multiply(angle2Val, math.pi / 180);
     real2 = r2Val * math.cos(angle2);
     img2 = r2Val * math.sin(angle2);
   }
@@ -204,7 +213,7 @@ function mulVector() {
   numRes = math.sqrt(math.add(math.square(realRes), math.square(imgRes)));
   angleRes = math.atan2(imgRes, realRes);
   // convertir a grados
-  angleRes = math.round(math.multiply(angleRes, 180 / math.pi), 3);
+  angleRes = math.multiply(angleRes, 180 / math.pi);
   // truncar a 3 decimales
   realRes = math.round(realRes, 3);
   imgRes = math.round(imgRes, 3);
@@ -231,13 +240,13 @@ function divVector() {
   // pasar los 2 vectores a rectangular
   if (!v1IsRectangular) {
     // convertir a radianes el angulo
-    var angle1 = math.round(math.multiply(angle1Val, math.pi / 180), 3);
+    var angle1 = math.multiply(angle1Val, math.pi / 180);
     real1 = r1Val * math.cos(angle1);
     img1 = r1Val * math.sin(angle1);
   }
   if (!v2IsRectangular) {
     // convertir a radianes el angulo
-    var angle2 = math.round(math.multiply(angle2Val, math.pi / 180), 3);
+    var angle2 = math.multiply(angle2Val, math.pi / 180);
     real2 = r2Val * math.cos(angle2);
     img2 = r2Val * math.sin(angle2);
   }
@@ -258,7 +267,7 @@ function divVector() {
   numRes = math.sqrt(math.add(math.square(realRes), math.square(imgRes)));
   angleRes = math.atan2(imgRes, realRes);
   // convertir a grados
-  angleRes = math.round(math.multiply(angleRes, 180 / math.pi), 3);
+  angleRes = math.multiply(angleRes, 180 / math.pi);
   // truncar a 3 decimales
   realRes = math.round(realRes, 3);
   imgRes = math.round(imgRes, 3);
@@ -542,4 +551,49 @@ function mostartTooltip(message, toolTipId) {
     $(toolTipId).tooltip("dispose");
     toolTipId = "";
   });
+}
+
+function drawV1() {
+  var num, img = null;
+  if ($("#r1").val() == "") {
+    num = 0;
+  } else {
+    try {
+      num = math.evaluate($("#r1").val());
+    } catch (error) {
+      mostartTooltip("Error al evaluar la expresión: " + error, "#r1");
+      num = 0;
+    }
+  }
+  if ($("#img1").val() == "") {
+    img = 0;
+  } else {
+    try {
+      img = math.evaluate($("#img1").val());
+    } catch (error) {
+      mostartTooltip("Error al evaluar la expresión: " + error, "#img1");
+      img = 0;
+    }
+  }
+  if (!v1IsRectangular) {
+    var angulo = 0;
+    if ($("#grado1").val() == "") {
+      angulo = 0;
+    } else {
+      try {
+        angulo = math.evaluate($("#grado1").val());
+      } catch (error) {
+        mostartTooltip("Error al evaluar la expresión: " + error, "#grado1");
+        angulo = 0;
+      }
+    }
+    // convertir a radianes
+    angulo = math.multiply(angulo, math.pi / 180);
+    numR = math.multiply(num, math.cos(angulo));
+    imgR = math.multiply(num, math.sin(angulo));
+    // truncar a 3 decimales
+    numR = math.round(numR, 3);
+    imgR = math.round(imgR, 3);
+  }
+  updateVector(0, undefined, { x: num, y: img });
 }
