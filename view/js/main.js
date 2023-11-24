@@ -12,6 +12,8 @@ var ticksX, ticksY,
   side = 0;
 var vectors = [];
 var vectorList = [];
+var angleList = [];
+var oldDegree = [];
 // definir el margin en terminos de em
 margin = {
   top: 40,
@@ -395,6 +397,46 @@ function initVector(origin = { x: 0, y: 0 }, end = { x: 0, y: 0 }, color = "blac
       .attr("stroke-width", 4)
       .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
   );
+
+  var startAngle = (Math.PI / 2);
+  var degree = Math.atan2(end.x - origin.x, end.y - origin.y);
+  var degreeText = Math.atan2(end.y - origin.y, end.x - origin.x);
+  degree = degree === 0 ? 0 : degree;
+  var len = Math.sqrt(Math.pow(end.x - origin.x, 2) + Math.pow(end.y - origin.y, 2));
+  // crear un fragmento de circulo entre el ejeY y el vector
+  var angle = svg.append("path")
+    .attr("class", "angle")
+    .attr("d", d3.arc()
+      .innerRadius(0)
+      .outerRadius(len / 4)
+      .startAngle(startAngle)
+      .endAngle(degree)
+    )
+    .attr("stroke", color)
+    .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+  // colocar el texto sobre el segmento de circulo
+  // justo en la mitad del segmento
+  var xMid = (len / 4) * Math.cos((degree + startAngle) / 2);
+  var yMid = (len / 4) * Math.sin((degree + startAngle) / 2);
+  var textAngle = svg.append("text")
+    .attr("class", "angle-text")
+    .attr("x", xMid)
+    .attr("y", -yMid)
+    .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+
+  if (degreeText === 0 || Math.abs(degreeText) === Math.PI) {
+    textAngle
+      .text("");
+    angle
+      .attr("opacity", "0");
+  } else {
+    textAngle
+      .text(Math.round(degree * 180 / Math.PI) + "°");
+    angle
+      .attr("opacity", "0.5");
+  }
+  // añadir el angulo a la lista de angulos
+  angleList.push({ angle: angle, text: textAngle });
 }
 
 function changeVector(pos, origin = { x: 0, y: 0 }, end = { x: 0, y: 0 }, color = null) {
@@ -424,6 +466,9 @@ function updateVector(pos) {
   // Ajustar las coordenadas en función del dominio
   var xScaleFactor = xDom === 0 ? 0 : (width - margin.left - margin.right) / (2 * xDom);
   var yScaleFactor = yDom === 0 ? 0 : (height - margin.top - margin.bottom) / (2 * yDom);
+
+  // actualizar el angulo
+  updateAngle();
 
   vectorList[pos]
     .transition()
@@ -469,12 +514,75 @@ function removeAllVectors() {
   });
 }
 
-function getVectorIs0(pos) {
+function getVectorIsCero(pos) {
   // verificar que la posición exista en vectorList
   if (pos < 0 || pos >= vectors.length) {
     return;
   }
   return vectors[pos][0].x === 0 && vectors[pos][0].y === 0 && vectors[pos][1].x === 0 && vectors[pos][1].y === 0;
+}
+
+function updateAngle() {
+  var xScaleFactor = xDom === 0 ? 0 : (width - margin.left - margin.right) / (2 * xDom);
+  var yScaleFactor = yDom === 0 ? 0 : (height - margin.top - margin.bottom) / (2 * yDom);
+
+  for (var i = 0; i < vectors.length; i++) {
+    var origin = vectors[i][0];
+    var end = vectors[i][1];
+    var startAngle = (Math.PI / 2);
+    var degree = Math.atan2(end.x - origin.x, end.y - origin.y);
+    var degreeText = Math.atan2(end.y - origin.y, end.x - origin.x) * 180 / Math.PI;
+    var len = Math.sqrt(Math.pow(end.x * xScaleFactor - origin.x * xScaleFactor, 2) + Math.pow(end.y * yScaleFactor - origin.y * yScaleFactor, 2));
+    // comparar los signos de oldDegree y degreeText
+    // si el degreeText es mayor a 180, en end angle es PiRadians - degree
+    // limpiar la consola
+    if (degreeText < 0) {
+      angleList[i].angle
+        .attr("d", d3.arc()
+          .innerRadius(0)
+          .outerRadius(len / 4)
+          .startAngle(startAngle)
+          .endAngle(startAngle)
+        )
+        .attr("fill", vectors[i][2])
+        .attr("stroke", vectors[i][2])
+        .attr("opacity", "0.5")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+      degree = 180 - Math.abs(degreeText);
+      degree = (270 - degree) * Math.PI / 180;
+    }
+    angleList[i].angle
+      .attr("d", d3.arc()
+        .innerRadius(0)
+        .outerRadius(len / 4)
+        .startAngle(startAngle)
+        .endAngle(degree)
+      )
+      .attr("fill", vectors[i][2])
+      .attr("stroke", vectors[i][2])
+      .attr("opacity", "0.5")
+      .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+    // calcular la mitad del angulo y consguir el cateto opuesto y adyacente
+    var xMid = (len / 4) * Math.cos((degreeText) / 2);
+    var yMid = (len / 4) * Math.sin((degreeText) / 2);
+    angleList[i].text
+      .attr("x", -xMid)
+      .attr("y", yMid)
+      .attr("fill", vectors[i][2])
+      .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+    if (degreeText === 0 || Math.abs(degreeText) % 90 === 0) {
+      angleList[i].text
+        .text("");
+      angleList[i].angle
+        .attr("opacity", "0");
+      continue;
+    } else {
+      angleList[i].text
+        .text(Math.round(degreeText) + "°");
+      angleList[i].angle
+        .attr("opacity", "0.5");
+    }
+  }
 }
 
 // recorrer los elementos del arreglo y ajustar el domino de la gráfica de los ejes

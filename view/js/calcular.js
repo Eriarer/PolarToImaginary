@@ -579,7 +579,7 @@ function mostartTooltip(message, toolTipId) {
 
 function drawV1() {
   var num, img = null;
-  if (!getVectorIs0(2)) {
+  if (!getVectorIsCero(2)) {
     removeVector(2);
     drawV2();
   }
@@ -641,7 +641,7 @@ function drawV1() {
 
 function drawV2() {
   var num, img = null;
-  if (!getVectorIs0(2)) {
+  if (!getVectorIsCero(2)) {
     removeVector(2);
     drawV1();
   }
@@ -706,7 +706,7 @@ function verifyInput(num) {
 }
 
 function drawAnsVec() {
-  if (!getVectorIs0(0) || !getVectorIs0(1)) {
+  if (!getVectorIsCero(0) || !getVectorIsCero(1)) {
     changeVector(0, undefined, { x: answerR, y: answerI }, undefined);
     changeVector(1, undefined, { x: answerR, y: answerI }, undefined);
     sleep(1400).then(() => {
