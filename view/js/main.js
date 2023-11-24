@@ -153,14 +153,14 @@ function updateGraph() {
   // Seleccionar y aplicar la transición al eje x
   svg.select(".x.axis")
     .transition()
-    .duration(1000)
+    .duration(700)
     .attr("transform", "translate(0," + (height / 2) + ")")
     .call(xScale);
 
   // Seleccionar y aplicar la transición al eje y
   svg.select(".y.axis")
     .transition()
-    .duration(1000)
+    .duration(700)
     .attr("transform", "translate(" + width / 2 + ",0)")
     .call(yScale);
 }
@@ -211,14 +211,14 @@ function drawGridX() {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("y1", i * ((height - margin.left - margin.right) / ticksX))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticksX)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticksX))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticksX))
         .attr("y2", height - margin.top - margin.bottom)
@@ -236,14 +236,14 @@ function drawGridX() {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("y1", i * ((height - margin.left - margin.right) / ticksX))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticksX)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticksX))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticksX))
         .attr("y2", height - margin.top - margin.bottom)
@@ -277,14 +277,14 @@ function drawGridX() {
 
       gridX[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("y1", i * ((height - margin.left - margin.right) / ticksX))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticksX)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticksX))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticksX))
         .attr("y2", height - margin.top - margin.bottom)
@@ -298,14 +298,14 @@ function drawGridY() {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("y1", i * ((height - margin.left - margin.right) / ticksY))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticksY)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticksY))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticksY))
         .attr("y2", height - margin.top - margin.bottom)
@@ -323,14 +323,14 @@ function drawGridY() {
     for (var i = 0; i < gridX.length; i++) {
       gridX[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("y1", i * ((height - margin.left - margin.right) / ticksY))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticksY)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticksY))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticksY))
         .attr("y2", height - margin.top - margin.bottom)
@@ -364,14 +364,14 @@ function drawGridY() {
 
       gridX[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("y1", i * ((height - margin.left - margin.right) / ticksY))
         .attr("x2", width - margin.right - margin.left)
         .attr("y2", i * (height - margin.left - margin.right) / ticksY)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       gridY[i]
         .transition()
-        .duration(1000)
+        .duration(700)
         .attr("x1", i * ((width - margin.top - margin.bottom) / ticksY))
         .attr("x2", i * ((width - margin.top - margin.bottom) / ticksY))
         .attr("y2", height - margin.top - margin.bottom)
@@ -427,13 +427,35 @@ function updateVector(pos) {
 
   vectorList[pos]
     .transition()
-    .duration(1000)
+    .duration(700)
     .attr("x1", origin.x * xScaleFactor)
     .attr("y1", -origin.y * yScaleFactor)
     .attr("x2", end.x * xScaleFactor)
     .attr("y2", -end.y * yScaleFactor)
     .attr("stroke", color)
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+}
+
+function removeVector(pos) {
+  // verificar que la posición exista en vectorList
+  if (pos < 0 || pos >= vectors.length) {
+    return;
+  }
+  isDelitingVectors = true;
+  vectors[pos][0] = { x: 0, y: 0 };
+  vectors[pos][1] = { x: 0, y: 0 };
+  // que la transición sea de 300ms easeSinInOut
+  vectorList[pos].transition()
+    .duration(500)
+    .ease(d3.easeSinInOut)
+    .attr("x1", 0)
+    .attr("y1", 0)
+    .attr("x2", 0)
+    .attr("y2", 0);
+  sleep(500).then(() => {
+    isDelitingVectors = false;
+  });
+  updateGraph();
 }
 
 function removeAllVectors() {
@@ -443,24 +465,27 @@ function removeAllVectors() {
   isDelitingVectors = true;
   // reccorrer el vector de vectores y poner sus posiciones en 0,0 y actualizarlos despues eliminarlos
   for (var i = 0; i < vectorList.length; i++) {
-    vectorList[i].transition()
-      .duration(1000)
-      .attr("x1", 0)
-      .attr("y1", 0)
-      .attr("x2", 0)
-      .attr("y2", 0);
+    removeVector(i);
   }
   sleep(1000).then(() => {
     isDelitingVectors = false;
   });
 }
 
+function getVectorIs0(pos) {
+  // verificar que la posición exista en vectorList
+  if (pos < 0 || pos >= vectors.length) {
+    return;
+  }
+  return vectors[pos][0].x === 0 && vectors[pos][0].y === 0 && vectors[pos][1].x === 0 && vectors[pos][1].y === 0;
+}
+
 // recorrer los elementos del arreglo y ajustar el domino de la gráfica de los ejes
 // al valor mayor de los elementos del arreglo
 function updateDom() {
   if (vectors.length === 0) {
-    xDom = 50;
-    yDom = 50;
+    xDom = 1;
+    yDom = 1;
     return;
   }
   var xMax = 0;
@@ -480,7 +505,7 @@ function updateDom() {
     }
   }
   if (xMax === 0) {
-    xMax = 50;
+    xMax = 1;
   } else if (xMax <= 1) {
     xMax = 1;
   } else if (xMax <= 5) {
@@ -491,7 +516,7 @@ function updateDom() {
     xMax = siguienteDivisible10(xMax);
   }
   if (yMax === 0) {
-    yMax = 50;
+    yMax = 1;
   } else if (yMax <= 1) {
     yMax = 1;
   } else if (yMax <= 5) {
@@ -515,8 +540,8 @@ function siguienteDivisible10(n) {
       continue;
     }
 
-    for (var j = 1; j < 10; j++) {
-      if (n < potencia * j) {
+    for (var j = 1; j <= 10; j++) {
+      if (n <= potencia * j) {
         return potencia * j;
       }
     }

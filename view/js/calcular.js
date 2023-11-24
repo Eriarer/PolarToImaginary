@@ -1,16 +1,17 @@
 var isTransform = false;
 var v1IsRectangular = true;
 var v2IsRectangular = true;
-var r1Val,
-  img1Val,
-  angle1Val,
-  r2Val,
-  img2Val,
-  angle2Val = "";
-
+var r1Val, img1Val, angle1Val,
+  r2Val, img2Val, angle2Val,
+  answerR, answerI = "";
+var vector1, vector2, vectorRes = null;
 $(document).ready(function () {
   stratView();
   addingButtonActions();
+
+  initVector(undefined, undefined, "red");
+  initVector(undefined, undefined, "blue");
+  initVector(undefined, undefined, "green");
 
   $("#r1").on("input", function () {
     drawV1();
@@ -20,6 +21,16 @@ $(document).ready(function () {
   });
   $("#grado1").on("input", function () {
     drawV1();
+  });
+
+  $("#r2").on("input", function () {
+    drawV2();
+  });
+  $("#img2").on("input", function () {
+    drawV2();
+  });
+  $("#grado2").on("input", function () {
+    drawV2();
   });
 });
 
@@ -41,6 +52,7 @@ function addingButtonActions() {
       return;
     }
     addVectors();
+    drawAnsVec();
   });
 
   $("#btn-min").click(function () {
@@ -48,6 +60,7 @@ function addingButtonActions() {
       return;
     }
     subVector();
+    drawAnsVec();
   });
 
   $("#btn-mul").click(function () {
@@ -55,6 +68,7 @@ function addingButtonActions() {
       return;
     }
     mulVector();
+    drawAnsVec();
   });
 
   $("#btn-div").click(function () {
@@ -62,6 +76,7 @@ function addingButtonActions() {
       return;
     }
     divVector();
+    drawAnsVec();
   });
 }
 
@@ -134,6 +149,8 @@ function addVectors() {
   // mostrar el resultado
   $("#resPolar").val(numRes + " ∠ " + angleRes + "°");
   $("#resRectangular").val(realRes + " + " + imgRes + "j");
+  answerR = realRes;
+  answerI = imgRes;
 }
 
 function subVector() {
@@ -178,6 +195,8 @@ function subVector() {
   // mostrar el resultado
   $("#resPolar").val(numRes + " ∠ " + angleRes + "°");
   $("#resRectangular").val(realRes + " + " + imgRes + "j");
+  answerR = realRes;
+  answerI = imgRes;
 }
 
 function mulVector() {
@@ -222,6 +241,8 @@ function mulVector() {
   // mostrar el resultado
   $("#resPolar").val(numRes + " ∠ " + angleRes + "°");
   $("#resRectangular").val(realRes + " + " + imgRes + "j");
+  answerR = realRes;
+  answerI = imgRes;
 }
 
 function divVector() {
@@ -252,16 +273,13 @@ function divVector() {
   }
   // dividir lel numero complejo
   var divisor = math.square(real2) + math.square(img2);
-  console.log(divisor);
   if (divisor == 0) {
     mostartTooltip("No se puede dividir entre 0", "#r2");
     return;
   }
   realRes = math.multiply(real1, real2) + math.multiply(img1, img2);
-  console.log(realRes);
   realRes = realRes / divisor;
   imgRes = math.multiply(img1, real2) - math.multiply(real1, img2);
-  console.log(imgRes);
   imgRes = imgRes / divisor;
   // obtener la forma polar del resultado
   numRes = math.sqrt(math.add(math.square(realRes), math.square(imgRes)));
@@ -276,6 +294,8 @@ function divVector() {
   // mostrar el resultado
   $("#resPolar").val(numRes + " ∠ " + angleRes + "°");
   $("#resRectangular").val(realRes + " + " + imgRes + "j");
+  answerR = realRes;
+  answerI = imgRes;
 }
 
 function stratView() {
@@ -349,8 +369,9 @@ function toggleView() {
   $("#V2").addClass("popOutIn").one("animationend", function () {
     $("#V2").removeClass("popOutIn");
   });
-  $("#resPolar").val("");
-  $("#resRectangular").val("");
+  //  limpiar todos los inputs
+  $("input").val("");
+  removeAllVectors();
   isTransform = !isTransform;
 }
 
@@ -370,6 +391,7 @@ function toggleV1() {
     .one("animationend", function () {
       $("#V1").removeClass("popOutIn");
     });
+  removeVector(0);
 }
 
 function toggleV2() {
@@ -386,6 +408,7 @@ function toggleV2() {
     .one("animationend", function () {
       $("#V2").removeClass("popOutIn");
     });
+  removeVector(1);
 }
 
 function setV1Polar() {
@@ -555,45 +578,130 @@ function mostartTooltip(message, toolTipId) {
 
 function drawV1() {
   var num, img = null;
-  if ($("#r1").val() == "") {
+  if (!getVectorIs0(2)) {
+    removeVector(2);
+  }
+  // Evaluar la parte real
+  if ($("#r1").val() === "") {
     num = 0;
   } else {
     try {
       num = math.evaluate($("#r1").val());
+      if (!verifyInput(num)) {
+        return;
+      }
     } catch (error) {
-      mostartTooltip("Error al evaluar la expresión: " + error, "#r1");
-      num = 0;
+      return;
     }
   }
-  if ($("#img1").val() == "") {
+
+  // Evaluar la parte imaginaria
+  if ($("#img1").val() === "") {
     img = 0;
   } else {
     try {
       img = math.evaluate($("#img1").val());
+      if (!verifyInput(img)) {
+        return;
+      }
     } catch (error) {
-      mostartTooltip("Error al evaluar la expresión: " + error, "#img1");
-      img = 0;
+      return;
     }
   }
+
+  // Evaluar el ángulo si no es rectangular
   if (!v1IsRectangular) {
     var angulo = 0;
-    if ($("#grado1").val() == "") {
+    if ($("#grado1").val() === "") {
       angulo = 0;
     } else {
       try {
         angulo = math.evaluate($("#grado1").val());
+        if (!verifyInput(angulo)) {
+          return;
+        }
       } catch (error) {
-        mostartTooltip("Error al evaluar la expresión: " + error, "#grado1");
-        angulo = 0;
+        return;
       }
+
+      // Convertir a radianes
+      angulo = math.multiply(angulo, math.pi / 180);
+      numR = math.multiply(num, math.cos(angulo));
+      imgR = math.multiply(num, math.sin(angulo));
+
+      // Truncar a 3 decimales
+      num = math.round(numR, 3);
+      img = math.round(imgR, 3);
     }
-    // convertir a radianes
-    angulo = math.multiply(angulo, math.pi / 180);
-    numR = math.multiply(num, math.cos(angulo));
-    imgR = math.multiply(num, math.sin(angulo));
-    // truncar a 3 decimales
-    numR = math.round(numR, 3);
-    imgR = math.round(imgR, 3);
   }
-  updateVector(0, undefined, { x: num, y: img });
+  changeVector(0, undefined, { x: num, y: img }, undefined);
+}
+
+function drawV2() {
+  var num, img = null;
+  if (!getVectorIs0(2)) {
+    removeVector(2);
+  }
+  // Evaluar la parte real
+  if ($("#r2").val() === "") {
+    num = 0;
+  } else {
+    try {
+      num = math.evaluate($("#r2").val());
+      if (!verifyInput(num)) {
+        return;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  // Evaluar la parte imaginaria
+  if ($("#img2").val() === "") {
+    img = 0;
+  } else {
+    try {
+      img = math.evaluate($("#img2").val());
+      if (!verifyInput(img)) {
+        return;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  // Evaluar el ángulo si no es rectangular
+  if (!v2IsRectangular) {
+    var angulo = 0;
+    if ($("#grado2").val() === "") {
+      angulo = 0;
+    } else {
+      try {
+        angulo = math.evaluate($("#grado2").val());
+        if (!verifyInput(angulo)) {
+          return;
+        }
+      } catch (error) {
+        return;
+      }
+
+      // Convertir a radianes
+      angulo = math.multiply(angulo, math.pi / 180);
+      numR = math.multiply(num, math.cos(angulo));
+      imgR = math.multiply(num, math.sin(angulo));
+
+      // Truncar a 3 decimales
+      num = math.round(numR, 3);
+      img = math.round(imgR, 3);
+    }
+  }
+  changeVector(1, undefined, { x: num, y: img }, undefined);
+}
+
+function verifyInput(num) {
+  return !(isNaN(num) || num === Infinity || num === -Infinity || num == null || num == undefined || num === "");
+}
+
+function drawAnsVec() {
+  changeVector(2, undefined, { x: answerR, y: answerI }, undefined);
 }
